@@ -1,0 +1,10 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <h2>Perfil do Administrador</h2>
+    <p>Nome de usuário: {{ profile_data.username }}</p>
+    <p>Email: {{ profile_data.email }}</p>
+    <!-- outras informações do perfil -->
+
+    <a href="{% url 'create_admin' %}" style="text-align: left;">Criar novo Usuário</a>
+{% endblock %}

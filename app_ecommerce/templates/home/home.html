@@ -3,10 +3,14 @@
 
 {% block title %}
 <title>Home</title>
-{% endblock %}
+{% endblock title %}
+
+
+
 
 {% block paragrafo %}
-<p>
-Na Pagina de Home 
-</p>
+<a href="{% url 'cadastrar_funcionario' %}" style="text-align: left;">Cadastrar Funcionaro</a><br>
+<a href="{% url 'cadastrar_usuario' %}" style="text-align: left;">Cadastrar usuário</a><br>
+<a href="{% url 'Vendas' %}" style="text-align: left;">Vendas</a><br>
+<a href="{% url 'cadastrar_produto' %}" style="text-align: left;">Cadastrar produtos</a><br>
 {% endblock %}
