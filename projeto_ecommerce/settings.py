@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'app_clientes',
     'app_funcionarios',
     'app_vendas',
-    'produtos.apps.AppProdutosConfig',
-    'funcionarios.apps.AppFuncionariosConfig',
+    #'produtos.apps.AppProdutosConfig',
+    #'funcionarios.apps.AppFuncionariosConfig',
    
 ]
 
