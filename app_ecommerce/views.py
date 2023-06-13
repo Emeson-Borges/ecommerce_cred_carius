@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from .forms import AdminForm
 
 #Importar de onde vem os Models
-from app_funcionarios.models import funcionarios
-from app_produtos.models import produtos
+from app_funcionarios.models import Funcionarios
+from app_produtos.models import Produtos
 # Create your views here.
 
 def home(request):
@@ -53,7 +53,7 @@ def lista_produtos(request):
     return render(request, 'listar_produtos/listar_produtos.html', {'produtos': Produtos})
 
 def listar_funcionarios(request):
-    Funcionarios = funcionarios.objects.all()
+    Funcionarios = Funcionarios.objects.all()
     return render(request, 'listar_funcionarios/listar_funcionarios.html', {'produtos': Funcionarios})
 
 #Classe do Modelo do Site
@@ -108,7 +108,7 @@ def cad_funcionarios(request):
     numero_casa = request.POST['numero_casa']
     contato     = request.POST['contato']
     
-    cad_funcionarios = funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
+    cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
       rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato)
     
     cad_funcionarios.save()
@@ -126,7 +126,7 @@ def cad_produto(request):
     descricao = request.POST['descricao']
     
     
-    cad_produto = produtos.objects.create(nome=nome,qtdprod=qtdprod,preco=preco,\
+    cad_produto = Produtos.objects.create(nome=nome,qtdprod=qtdprod,preco=preco,\
       descricao=descricao)
    
     cad_produto.save()

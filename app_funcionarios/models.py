@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class funcionarios(models.Model):
+class Funcionarios(models.Model):
   nome        = models.CharField(max_length=100, verbose_name='Nome do Funcionário')
   contato     = models.CharField(max_length=15, verbose_name='Número de Telefone')
   cpf         = models.CharField(max_length=11, verbose_name='CPF do Funcionário')
