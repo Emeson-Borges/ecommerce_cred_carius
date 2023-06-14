@@ -152,20 +152,30 @@ def upd_funcionario(request):
      if request.method == 'POST':
        funcionario = Funcionarios.objects.get(id=request.POST['id'])
 
-       nome        = request.POST['nome']
-       cpf         = request.POST['cpf']  
-       rg          = request.POST['rg']                
-       cidade      = request.POST['cidade']
-       rua         = request.POST['rua']
-       bairro      = request.POST['bairro']
-       dtnasc_func = request.POST['dtnasc_func']
-       numero_casa = request.POST['numero_casa']
-       contato     = request.POST['contato']
-       sexo        = request.POST['sexo']
-       estado      = request.POST['estadocivil']
-
-       funcionario.save(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
-          rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato, sexo = sexo,
-          estadocivil = estado)  
+       nome             = request.POST['nome']
+       cpf              = request.POST['cpf']  
+       rg               = request.POST['rg']                
+       cidade           = request.POST['cidade']
+       rua              = request.POST['rua']
+       bairro           = request.POST['bairro']
+       dtnasc_func      = request.POST['dtnasc_func']
+       numero_casa      = request.POST['numero_casa']
+       contato          = request.POST['contato']
+       sexo             = request.POST['sexo']
+       estado           = request.POST['estadocivil']
+       observacao       = request.POST['observacao']
+       funcionario.nome = nome
+       funcionario.cpf = cpf
+       funcionario.rg = rg
+       funcionario.cidade = cidade
+       funcionario.rua = rua
+       funcionario.bairro = bairro
+       funcionario.dtnasc_func = dtnasc_func
+       funcionario.numero_casa = numero_casa
+       funcionario.contato = contato
+       funcionario.sexo = sexo
+       funcionario.estado = estado
+       funcionario.observacao = observacao
+       funcionario.save()  
 # Salvar na tabela Vendas
 

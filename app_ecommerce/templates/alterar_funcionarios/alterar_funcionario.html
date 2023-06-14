@@ -17,6 +17,7 @@
 
   <form class="form" action="{% url 'upd_funcionario' %}" method="POST">
     {% csrf_token %} 
+    <input style="display: none;" name="id" value="{{funcionario.id}}">
       <div class="row">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
@@ -51,13 +52,31 @@
       <div class="form_grupo">
           <label for="estadocivil" class="text">Estado civil</label>
           <select name="estadocivil" class="dropdown" required value="{{funcionario.estadocivil}}">
-              
+            {% if funcionario.estadocivil == 'Solteiro(a)'%}
               <option selected disabled class="form_select_option" value="">Selecione</option>
-              <option value="Solteiro" class="form_select_option">Solteiro(a)</option>
+              <option value="Solteiro" class="form_select_option" selected>Solteiro(a)</option>
               <option value="Casado" class="form_select_option">Casado(a) </option>
               <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
-              <option value="Viúvo" class="form_select_option">Viúvo(a)</option>                    
-          
+              <option value="Viúvo" class="form_select_option">Viúvo(a)</option>
+            {% elif funcionario.estadocivil == 'Casado(a)'%}
+            <option selected disabled class="form_select_option" value="">Selecione</option>
+            <option value="Solteiro" class="form_select_option" >Solteiro(a)</option>
+            <option value="Casado" class="form_select_option" selected>Casado(a) </option>
+            <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
+            <option value="Viúvo" class="form_select_option">Viúvo(a)</option>    
+            {% elif funcionario.estadocivil == 'Divorciado(a)'%}
+            <option selected disabled class="form_select_option" value="">Selecione</option>
+            <option value="Solteiro" class="form_select_option" >Solteiro(a)</option>
+            <option value="Casado" class="form_select_option">Casado(a) </option>
+            <option value="Divorciado" class="form_select_option" selected>Divorciado(a)</option>                    
+            <option value="Viúvo" class="form_select_option" >Viúvo(a)</option>    
+            {% elif funcionario.estadocivil == 'Viúvo(a)'%}
+            <option selected disabled class="form_select_option" value="">Selecione</option>
+            <option value="Solteiro" class="form_select_option">Solteiro(a)</option>
+            <option value="Casado" class="form_select_option">Casado(a) </option>
+            <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
+            <option value="Viúvo" class="form_select_option" selected>Viúvo(a)</option>                        
+            {% endif%}
           </select>
 
         </div>
@@ -190,49 +209,76 @@
       
       <div class="form_grupo">
         <label for="Rua">Rua</label>
-        <input type="text" name="rua" placeholder="Digite o nome da sua rua" />
+        <input type="text" name="rua" placeholder="Digite o nome da sua rua" value="{{funcionario.rua}}" />
       </div>
 
       <div class="form_grupo">
         <label for="Bairro">Bairro</label>
-        <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" />
+        <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" value="{{funcionario.bairro}}"/>
       </div>
 
       <div class="form_grupo">
         <label for="Numero">Numero</label>
-        <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" />        
+        <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" value="{{funcionario.numero_casa}}"/>        
       </div>
 
 
       <div class="form_grupo">
 
           <span class="legenda">Setor</span>
-
-          <div class="check-btn">
+          {%if funcionario.setor == 'Vendas'%}
+            <div class="check-btn">
+                <input type="checkbox" class="form_new_input" id="html5" name="aprender" checked value="html5">
+                <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
+            </div>
+          {% else %}
+            <div class="check-btn">
               <input type="checkbox" class="form_new_input" id="html5" name="aprender" value="html5">
               <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
-          </div>
-
-          <div class="check-btn">
+            </div>
+          {%endif%}
+          
+          {% if funcionario.setor == 'Entrega'%}
+            <div class="check-btn">
+                <input type="checkbox" class="form_new_input" checked id="css3" name="aprender" value="css3">
+                <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
+            </div>
+          {% else %}
+            <div class="check-btn">
               <input type="checkbox" class="form_new_input" id="css3" name="aprender" value="css3">
               <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
-          </div>
+            </div>
+          {%endif%}
 
+          {% if funcionario.setor == 'Financeiro'%}
+            <div class="check-btn">
+                <input type="checkbox" class="form_new_input" id="jquery" checked name="aprender" value="jquery">
+                <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
+            </div>
+          {% else %}
           <div class="check-btn">
-              <input type="checkbox" class="form_new_input" id="jquery" name="aprender" value="jquery">
-              <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
-          </div>
-
+            <input type="checkbox" class="form_new_input" id="jquery" name="aprender" value="jquery">
+            <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
+        </div>
+        {%endif%}
+        
+        {%if funcionario.setor == 'Cobrador'%}
+            <div class="check-btn">
+                <input type="checkbox" class="form_new_input" id="wordpress" checked name="aprender" value="wordpress">
+                <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
+            </div>
+        {%else%}
           <div class="check-btn">
-              <input type="checkbox" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
-              <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
+            <input type="checkbox" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
+            <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
           </div>
+        {% endif %}
           
 
           <div class="form_message">
               
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
-              <textarea name="mensagem" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
+              <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required>{{funcionario.observacao}}</textarea>
 
           </div>
 
