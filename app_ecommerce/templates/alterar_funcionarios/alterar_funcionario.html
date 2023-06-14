@@ -13,44 +13,44 @@
     </nav>
     {% endblock animation %}
 
-  <h1>CADASTRO DE FUNCIONARIOS</h1>
+  <h1>ALTERAÇÃO DE FUNCIONARIOS</h1>
 
-  <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
+  <form class="form" action="{% url 'upd_funcionario' %}" method="POST">
     {% csrf_token %} 
       <div class="row">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
-          <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required>
+          <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required value="{{ funcionario.nome }}">
       </div>
       
       <div class="form_grupo">
         <label for="CPF">CPF</label>
-        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="11" requirid />
+        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="11" required value = "{{funcionario.cpf}}" />
       </div>
 
       <div class="form_grupo">
         <label for="RG">RG</label>
-        <input type="text" name="rg" placeholder="Digite seu RG" />
+        <input type="text" name="rg" placeholder="Digite seu RG" required value = "{{funcionario.rg}}"/>
       </div>
     </div>
       <div class="form_grupo">
         <label for="dtnasc">Data Nascimento</label>
-        <input type="text" name="dtnasc_func" placeholder="Digite sua Data de Nascimento" />
+        <input type="text" name="dtnasc_func" placeholder="Digite sua Data de Nascimento" required value="{{funcionario.dtnasc_func}}" />
       </div>
 
       <div class="form_grupo">
         <label for="Contato">Contato</label>
-        <input type="text" name="contato" placeholder="Digite o número de celular" />
+        <input type="text" name="contato" placeholder="Digite o número de celular" required value="{{funcionario.contato}}" />
       </div>
 
       <div class="form_grupo">
           <label for="e-mail" class="form_label">Email</label>
-          <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required>
+          <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required value="{{funcionario.email}}">
       </div>
 
       <div class="form_grupo">
           <label for="estadocivil" class="text">Estado civil</label>
-          <select name="estadocivil" class="dropdown" required>
+          <select name="estadocivil" class="dropdown" required value="{{funcionario.estadocivil}}">
               
               <option selected disabled class="form_select_option" value="">Selecione</option>
               <option value="Solteiro" class="form_select_option">Solteiro(a)</option>
@@ -65,16 +65,28 @@
       <div class="form_grupo">
 
           <span class="legenda">Sexo:</span>
-          
-          <div class="radio-btn">
-              <input type="radio" class="form_new_input" id="masculino" name="sexo" value="Masculino" required="required">
-              <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
-          </div>
+          {% if pk.sexo == 'Masculino'%}
+            <div class="radio-btn">
+                <input type="radio" checked class="form_new_input" id="masculino" name="sexo" value="Masculino" required="required">
+                <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
+            </div>
 
-          <div class="radio-btn">
-              <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino" required="required">
-              <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
-          </div>
+            <div class="radio-btn">
+                <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino" required="required">
+                <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
+            </div>
+            {% else%}
+              <div class="radio-btn">
+                  <input type="radio" checked class="form_new_input" id="masculino" name="sexo" value="Masculino" required="required">
+                  <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
+              </div>
+
+              <div class="radio-btn">
+                  <input type="radio" checked class="form_new_input" id="feminino" name="sexo" value="Feminino" required="required">
+                  <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
+              </div>
+
+          {% endif %}
 
       </div>
 
@@ -227,7 +239,7 @@
           <div class="submit">
 
             <input type="hidden" name="acao" value="enviar">
-            <button type="submit" name="Submit" class="submit_btn" >Cadastrar</button>
+            <button type="submit" name="Submit" class="submit_btn" >Alterar</button>
           
           </div>
 </div><!--container_form-->

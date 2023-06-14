@@ -25,8 +25,8 @@ urlpatterns = [
     
     #Rotas para listar itens
     path('produtos/', views.lista_produtos, name='lista_produtos'),
-    #path('vendas/', views.lista_vendas, name='lista_vendas'),
-    #path('funcionarios/', views.listar_funcionarios, name='listar_funcionarios'),
+    # path('vendas/', views.lista_vendas, name='lista_vendas'),
+    path('funcionarios/', views.listar_funcionarios, name='listar_funcionarios'),
     
     
     
@@ -35,5 +35,11 @@ urlpatterns = [
     path('cad_produtos/', views.cad_produtos, name='cad_produtos'),
     path('cadastrar_vendas/', views.cadastrar_vendas, name='cadastrar_vendas'),
     
+    #Rotas que alteram os dados na tabela
+    path('alterar_funcionario/<int:pk>/', views.alterar_funcionario,name='alterar_funcionario'),
+    path('upd_funcionario/', views.upd_funcionario,name='upd_funcionario'),
+    
+    #Rotas que deletam dados
+    path('deleta_funcionario/<int:pk>', views.deleta_funcionario,name='deleta_funcionario')
     
 ]

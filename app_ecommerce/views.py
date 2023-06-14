@@ -49,12 +49,12 @@ def relatorios(request):
 
 #Função para listar itens na tela
 def lista_produtos(request):
-    Produtos = produtos.objects.all()
+    Produtos = Produtos.objects.all()
     return render(request, 'listar_produtos/listar_produtos.html', {'produtos': Produtos})
 
 def listar_funcionarios(request):
-    Funcionarios = Funcionarios.objects.all()
-    return render(request, 'listar_funcionarios/listar_funcionarios.html', {'produtos': Funcionarios})
+    funcionarios = Funcionarios.objects.all()
+    return render(request, 'listar_funcionarios/listar_funcionario.html', {'funcionarios': funcionarios})
 
 #Classe do Modelo do Site
 class ModeloView(TemplateView):
@@ -107,13 +107,15 @@ def cad_funcionarios(request):
     dtnasc_func = request.POST['dtnasc_func']
     numero_casa = request.POST['numero_casa']
     contato     = request.POST['contato']
-    
     cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
       rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato)
     
     cad_funcionarios.save()
     messages.success(request, 'Funcionário cadastrado com sucesso.')
-    return redirect('cadastrar_funcionario')
+    #Para depois que as rotas o update e delete tiverem sido feitos
+    return redirect('listar_funcionarios')
+
+    # return redirect('cadastrar_funcionario')
   
   return render(request, 'cadastrar_funcionario.html')
 
@@ -135,5 +137,35 @@ def cad_produto(request):
   
   return render(request, 'cadastrar_produto.html')
 
+#Deletar no Banco
+
+def deleta_funcionario(request):
+   funcionarios=Funcionarios.objects.get(id=request.GET['id'])
+   funcionarios.delete()
+   return redirect('lista_funcionarios')
+
+def alterar_funcionario(request,pk):
+      funcionario = Funcionarios.objects.get(id=pk)
+      return render(request, 'alterar_funcionarios/alterar_funcionario.html', {'funcionario':funcionario}) 
+   
+def upd_funcionario(request):
+     if request.method == 'POST':
+       funcionario = Funcionarios.objects.get(id=request.POST['id'])
+
+       nome        = request.POST['nome']
+       cpf         = request.POST['cpf']  
+       rg          = request.POST['rg']                
+       cidade      = request.POST['cidade']
+       rua         = request.POST['rua']
+       bairro      = request.POST['bairro']
+       dtnasc_func = request.POST['dtnasc_func']
+       numero_casa = request.POST['numero_casa']
+       contato     = request.POST['contato']
+       sexo        = request.POST['sexo']
+       estado      = request.POST['estadocivil']
+
+       funcionario.save(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
+          rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato, sexo = sexo,
+          estadocivil = estado)  
 # Salvar na tabela Vendas
 

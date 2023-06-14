@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 #Importar classes
-from .models import produtos
+from .models import Produtos
 
 # Register your models here.
-admin.site.register(produtos)
+admin.site.register(Produtos)
