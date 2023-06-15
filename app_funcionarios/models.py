@@ -10,12 +10,13 @@ class Funcionarios(models.Model):
   cidade           = models.CharField(max_length=50, verbose_name='Cidade')
   rua              = models.CharField(max_length=50, verbose_name='Rua')
   bairro           = models.CharField(max_length=50, verbose_name='Bairro')
-  numero_casa      = models.IntegerField(max_length=10, verbose_name='Número da casa')
+  numero_casa      = models.IntegerField(verbose_name='Número da casa')
   dtnasc_func      = models.DateField(max_length=8, verbose_name='Data de Nascimento do Funcionário')
   sexo             = models.CharField(max_length=9, verbose_name="Sexo do funcionário")
   estadocivil      = models.CharField(max_length=15, verbose_name="Estado civil")
   setor            = models.CharField(max_length=10, verbose_name="Setor")
   observacao       = models.TextField(max_length=500, verbose_name="Observação")  
+  
   class Meta:
     db_table = 'funcionarios'
     
