@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from .forms import AdminForm
 
 #Importar de onde vem os Models
-from app_funcionarios.models import funcionarios
-from app_produtos.models import produtos
+from app_funcionarios.models import Funcionarios
+from app_produtos.models import Produtos
 # Create your views here.
 
 def home(request):
@@ -49,12 +49,12 @@ def relatorios(request):
 
 #Função para listar itens na tela
 def lista_produtos(request):
-    Produtos = produtos.objects.all()
+    Produtos = Produtos.objects.all()
     return render(request, 'listar_produtos/listar_produtos.html', {'produtos': Produtos})
 
 def listar_funcionarios(request):
-    Funcionarios = funcionarios.objects.all()
-    return render(request, 'listar_funcionarios/listar_funcionarios.html', {'produtos': Funcionarios})
+    funcionarios = Funcionarios.objects.all()
+    return render(request, 'listar_funcionarios/listar_funcionario.html', {'funcionarios': funcionarios})
 
 #Classe do Modelo do Site
 class ModeloView(TemplateView):
@@ -107,13 +107,15 @@ def cad_funcionarios(request):
     dtnasc_func = request.POST['dtnasc_func']
     numero_casa = request.POST['numero_casa']
     contato     = request.POST['contato']
-    
-    cad_funcionarios = funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
+    cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
       rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato)
     
     cad_funcionarios.save()
     messages.success(request, 'Funcionário cadastrado com sucesso.')
-    return redirect('cadastrar_funcionario')
+    #Para depois que as rotas o update e delete tiverem sido feitos
+    return redirect('listar_funcionarios')
+
+    # return redirect('cadastrar_funcionario')
   
   return render(request, 'cadastrar_funcionario.html')
 
@@ -126,7 +128,7 @@ def cad_produto(request):
     descricao = request.POST['descricao']
     
     
-    cad_produto = produtos.objects.create(nome=nome,qtdprod=qtdprod,preco=preco,\
+    cad_produto = Produtos.objects.create(nome=nome,qtdprod=qtdprod,preco=preco,\
       descricao=descricao)
    
     cad_produto.save()
@@ -135,5 +137,45 @@ def cad_produto(request):
   
   return render(request, 'cadastrar_produto.html')
 
+#Deletar no Banco
+
+def deleta_funcionario(request):
+   funcionarios=Funcionarios.objects.get(id=request.GET['id'])
+   funcionarios.delete()
+   return redirect('lista_funcionarios')
+
+def alterar_funcionario(request,pk):
+      funcionario = Funcionarios.objects.get(id=pk)
+      return render(request, 'alterar_funcionarios/alterar_funcionario.html', {'funcionario':funcionario}) 
+   
+def upd_funcionario(request):
+     if request.method == 'POST':
+       funcionario = Funcionarios.objects.get(id=request.POST['id'])
+
+       nome             = request.POST['nome']
+       cpf              = request.POST['cpf']  
+       rg               = request.POST['rg']                
+       cidade           = request.POST['cidade']
+       rua              = request.POST['rua']
+       bairro           = request.POST['bairro']
+       dtnasc_func      = request.POST['dtnasc_func']
+       numero_casa      = request.POST['numero_casa']
+       contato          = request.POST['contato']
+       sexo             = request.POST['sexo']
+       estado           = request.POST['estadocivil']
+       observacao       = request.POST['observacao']
+       funcionario.nome = nome
+       funcionario.cpf = cpf
+       funcionario.rg = rg
+       funcionario.cidade = cidade
+       funcionario.rua = rua
+       funcionario.bairro = bairro
+       funcionario.dtnasc_func = dtnasc_func
+       funcionario.numero_casa = numero_casa
+       funcionario.contato = contato
+       funcionario.sexo = sexo
+       funcionario.estado = estado
+       funcionario.observacao = observacao
+       funcionario.save()  
 # Salvar na tabela Vendas
 
