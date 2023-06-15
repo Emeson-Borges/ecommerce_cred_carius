@@ -10,6 +10,6 @@ from django.urls import reverse_lazy
 class FuncionariosCreate(CreateView):
   model = funcionarios
   fields = ['nome', 'cpf', 'rg', 'rua', 'cidade', 'bairro', 'contato',\
-    'dtnasc_func', 'numero_casa']
+    'dtnasc_func', 'numero_casa', 'estado', 'estado_civil', 'sexo', 'setor', 'observacao', 'email']
   template_name = 'templates/cadastrar_funcionario/cadastrar_funcionario.html'
   success_url = reverse_lazy('')

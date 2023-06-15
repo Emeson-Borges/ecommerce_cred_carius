@@ -13,23 +13,23 @@ cadastrados.
 </p>
 <table class="table">
 <thead class="thead-dark">
-<tr>
-<th>ID</th>
-<th>Nome</th>
-<th>Sobrenome</th>
-<th>Tempo de Serviço</th>
-<th>Remuneração</th>
-<th>Ações</th>
-</tr>
+  <tr>
+  <th>ID</th>
+  <th>Nome</th>
+  <th>Sobrenome</th>
+  <th>Tempo de Serviço</th>
+  <th>Remuneração</th>
+  <th>Ações</th>
+  </tr>
 </thead>
 <tbody>
-{% for f in funcionarios %}
-<tr>
-<td>{{ f.id }}</td>
-<td>{{ f.nome }}</td>
-<td>{{ f.sobrenome }}</td>
-<td>{{ f.remuneracao }}</td>
-<td>
+  {% for f in funcionarios %}
+  <tr>
+  <td>{{ f.id }}</td>
+  <td>{{ f.nome }}</td>
+  <td>{{ f.sobrenome }}</td>
+  <td>{{ f.remuneracao }}</td>
+  <td>
 <a href="{% url 'website:atualiza_funcionario' pk=f.id %}"
 class="btn btn-info">
 Atualizar

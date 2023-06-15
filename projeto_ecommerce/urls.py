@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from app_ecommerce import views
 from app_ecommerce.views import ModeloView, HomeView
 # from .views import lista_produtos
@@ -7,6 +8,9 @@ from app_ecommerce.views import ModeloView, HomeView
 urlpatterns = [
     
     #rota, view responável, nome de preferência
+    #Rota do Rest Framework
+    path('api-auth/', include('rest_framework.urls')),
+    
     path('perfil/', views.admin_profile, name='admin_profile'),
     path('novo_admin/', views.create_admin, name='create_admin'),
     path('admin/', admin.site.urls),
@@ -37,3 +41,6 @@ urlpatterns = [
     
     
 ]
+
+
+urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
