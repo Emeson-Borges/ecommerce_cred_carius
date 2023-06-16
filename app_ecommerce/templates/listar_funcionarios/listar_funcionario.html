@@ -23,14 +23,14 @@ cadastrados.
   </tr>
 </thead>
 <tbody>
-  {% for f in Funcionarios %}
+  {% for f in funcionarios %}
   <tr>
   <td>{{ f.id }}</td>
   <td>{{ f.nome }}</td>
   <td>{{ f.sobrenome }}</td>
   <td>{{ f.remuneracao }}</td>
   <td>
-<a href="{% url 'website:atualiza_funcionario' pk=f.id %}"
+<a href="{% url 'alterar_funcionario' pk=f.id %}"
 class="btn btn-info">
 Atualizar
 </a>
@@ -51,7 +51,7 @@ Excluir
 <hr />
 <div class="text-right">
 <a class="btn btn-primary"
-href="{% url 'cad_funcionarios' %}">
+href="{% url 'cadastrar_funcionario' %}">
 Cadastrar Funcionário
 </a>
 </div>

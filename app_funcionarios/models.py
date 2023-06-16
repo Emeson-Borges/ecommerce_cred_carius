@@ -11,7 +11,7 @@ class Funcionarios(models.Model):
   rua              = models.CharField(max_length=50, verbose_name='Rua')
   bairro           = models.CharField(max_length=50, verbose_name='Bairro')
   numero_casa      = models.IntegerField(verbose_name='Número da casa')
-  dtnasc_func      = models.DateField(max_length=8, verbose_name='Data de Nascimento do Funcionário')
+  dtnasc_func      = models.CharField(max_length=10, verbose_name='Data de Nascimento do Funcionário')
   sexo             = models.CharField(max_length=9, verbose_name="Sexo do funcionário")
   estadocivil      = models.CharField(max_length=15, verbose_name="Estado civil")
   setor            = models.CharField(max_length=10, verbose_name="Setor")

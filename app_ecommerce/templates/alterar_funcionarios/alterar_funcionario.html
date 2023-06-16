@@ -52,31 +52,31 @@
       <div class="form_grupo">
           <label for="estadocivil" class="text">Estado civil</label>
           <select name="estadocivil" class="dropdown" required value="{{funcionario.estadocivil}}">
-            {% if funcionario.estadocivil == 'Solteiro(a)'%}
+            {% if funcionario.estadocivil == 'Solteiro(a)' %}
               <option selected disabled class="form_select_option" value="">Selecione</option>
               <option value="Solteiro" class="form_select_option" selected>Solteiro(a)</option>
               <option value="Casado" class="form_select_option">Casado(a) </option>
               <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
               <option value="Viúvo" class="form_select_option">Viúvo(a)</option>
-            {% elif funcionario.estadocivil == 'Casado(a)'%}
+            {% elif funcionario.estadocivil == 'Casado(a)' %}
             <option selected disabled class="form_select_option" value="">Selecione</option>
             <option value="Solteiro" class="form_select_option" >Solteiro(a)</option>
             <option value="Casado" class="form_select_option" selected>Casado(a) </option>
             <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
             <option value="Viúvo" class="form_select_option">Viúvo(a)</option>    
-            {% elif funcionario.estadocivil == 'Divorciado(a)'%}
+            {% elif funcionario.estadocivil == 'Divorciado(a)' %}
             <option selected disabled class="form_select_option" value="">Selecione</option>
             <option value="Solteiro" class="form_select_option" >Solteiro(a)</option>
             <option value="Casado" class="form_select_option">Casado(a) </option>
             <option value="Divorciado" class="form_select_option" selected>Divorciado(a)</option>                    
             <option value="Viúvo" class="form_select_option" >Viúvo(a)</option>    
-            {% elif funcionario.estadocivil == 'Viúvo(a)'%}
+            {% elif funcionario.estadocivil == 'Viúvo(a)' %}
             <option selected disabled class="form_select_option" value="">Selecione</option>
             <option value="Solteiro" class="form_select_option">Solteiro(a)</option>
             <option value="Casado" class="form_select_option">Casado(a) </option>
             <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
             <option value="Viúvo" class="form_select_option" selected>Viúvo(a)</option>                        
-            {% endif%}
+            {% endif %}
           </select>
 
         </div>

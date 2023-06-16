@@ -41,7 +41,7 @@ urlpatterns = [
     
     #Rotas que alteram os dados na tabela
     path('alterar_funcionario/<int:pk>/', views.alterar_funcionario,name='alterar_funcionario'),
-    path('upd_funcionario/', views.upd_funcionario,name='upd_funcionario'),
+    path('upd_funcionario/', views.upd_funcionario, name='upd_funcionario'),
     
     #Rotas que deletam dados
     path('deleta_funcionario/<int:pk>', views.deleta_funcionario,name='deleta_funcionario')
@@ -49,4 +49,4 @@ urlpatterns = [
 ]
 
 
-urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
+urlpatterns += [re_path(r'^.*',ModeloView.as_view(template_name='index.html'))]
