@@ -50,13 +50,13 @@
 
       <div class="form_grupo">
           <label for="estadocivil" class="text">Estado civil</label>
-          <select name="estadocivil" class="dropdown" required>
+          <select name="estadocivil" class="dropdown" id="estadocivil" required>
               
-              <option selected disabled class="form_select_option" value="">Selecione</option>
-              <option value="Solteiro" class="form_select_option">Solteiro(a)</option>
-              <option value="Casado" class="form_select_option">Casado(a) </option>
-              <option value="Divorciado" class="form_select_option">Divorciado(a)</option>                    
-              <option value="Viúvo" class="form_select_option">Viúvo(a)</option>                    
+              <option selected disabled class="form_select_option" value="" >Selecione</option>
+              <option value="Solteiro" class="form_select_option" id="solteiro">Solteiro(a)</option>
+              <option value="Casado" class="form_select_option" id="casado">Casado(a) </option>
+              <option value="Divorciado" class="form_select_option" id="divorciado">Divorciado(a)</option>                    
+              <option value="Viúvo" class="form_select_option" id="viuvo">Viúvo(a)</option>                    
           
           </select>
 
@@ -119,61 +119,7 @@
         </select>
       </div>
       
-      <script>
-        const cidadesPorEstado = {
-            acre: ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
-            alagoas: ["Maceió", "Arapiraca", "Palmeira dos Índios"],
-            amapa: ["Macapá", "Santana", "Laranjal do Jari"],
-            amazonas: ["Manaus", "Parintins", "Itacoatiara"],
-            bahia: ["Salvador", "Feira de Santana", "Vitória da Conquista"],
-            ceara: ["Fortaleza", "Juazeiro do Norte", "Caucaia"],
-            "distrito-federal": ["Brasília"],
-            "espirito-santo": ["Vitória", "Vila Velha", "Cariacica"],
-            goias: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
-            maranhao: ["São Luís", "Imperatriz", "Timon"],
-            "mato-grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
-            "mato-grosso-do-sul": ["Campo Grande", "Dourados", "Três Lagoas"],
-            "minas-gerais": ["Belo Horizonte", "Uberlândia", "Contagem"],
-            para: ["Belém", "Ananindeua", "Santarém"],
-            paraiba: ["João Pessoa", "Campina Grande", "Santa Rita"],
-            parana: ["Curitiba", "Londrina", "Maringá"],
-            pernambuco: ["Recife", "Jaboatão dos Guararapes", "Olinda"],
-            piaui: ["Teresina", "Parnaíba", "Picos"],
-            "rio-de-janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
-            "rio-grande-do-norte": ["Natal", "Mossoró", "Parnamirim"],
-            "rio-grande-do-sul": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
-            rondonia: ["Porto Velho", "Ji-Paraná", "Ariquemes"],
-            roraima: ["Boa Vista", "Rorainópolis", "Caracaraí"],
-            "santa-catarina": ["Florianópolis", "Joinville", "Blumenau"],
-            "sao-paulo": ["São Paulo", "Guarulhos", "Campinas"],
-            sergipe: ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
-            tocantins: ["Palmas", "Araguaína", "Gurupi"]
-          };
-          
       
-        const selectEstado = document.querySelector('select[name="estado"]');
-        const selectCidade = document.querySelector('select[name="cidade"]');
-      
-        selectEstado.addEventListener('change', function() {
-          const estadoSelecionado = this.value;
-          
-          // Limpa as opções do dropdown de cidades
-          selectCidade.innerHTML = '<option selected disabled class="form_select_option" value="">Selecione</option>';
-          
-          // Verifica se um estado foi selecionado
-          if (estadoSelecionado) {
-            const cidades = cidadesPorEstado[estadoSelecionado];
-            
-            // Adiciona as opções de cidades no dropdown correspondente
-            cidades.forEach((cidade) => {
-              const optionElement = document.createElement('option');
-              optionElement.textContent = cidade;
-              optionElement.value = cidade;
-              selectCidade.appendChild(optionElement);
-            });
-          }
-        });
-      </script>
       
       
       <div class="form_grupo">
@@ -234,3 +180,62 @@
 <footer class="f">
     Rodapé da página
 </footer>
+
+<script>
+  const cidadesPorEstado = {
+      acre: ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
+      alagoas: ["Maceió", "Arapiraca", "Palmeira dos Índios"],
+      amapa: ["Macapá", "Santana", "Laranjal do Jari"],
+      amazonas: ["Manaus", "Parintins", "Itacoatiara"],
+      bahia: ["Salvador", "Feira de Santana", "Vitória da Conquista"],
+      ceara: ["Fortaleza", "Juazeiro do Norte", "Caucaia"],
+      "distrito-federal": ["Brasília"],
+      "espirito-santo": ["Vitória", "Vila Velha", "Cariacica"],
+      goias: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
+      maranhao: ["São Luís", "Imperatriz", "Timon"],
+      "mato-grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
+      "mato-grosso-do-sul": ["Campo Grande", "Dourados", "Três Lagoas"],
+      "minas-gerais": ["Belo Horizonte", "Uberlândia", "Contagem"],
+      para: ["Belém", "Ananindeua", "Santarém"],
+      paraiba: ["João Pessoa", "Campina Grande", "Santa Rita"],
+      parana: ["Curitiba", "Londrina", "Maringá"],
+      pernambuco: ["Recife", "Jaboatão dos Guararapes", "Olinda"],
+      piaui: ["Teresina", "Parnaíba", "Picos"],
+      "rio-de-janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
+      "rio-grande-do-norte": ["Natal", "Mossoró", "Parnamirim"],
+      "rio-grande-do-sul": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
+      rondonia: ["Porto Velho", "Ji-Paraná", "Ariquemes"],
+      roraima: ["Boa Vista", "Rorainópolis", "Caracaraí"],
+      "santa-catarina": ["Florianópolis", "Joinville", "Blumenau"],
+      "sao-paulo": ["São Paulo", "Guarulhos", "Campinas"],
+      sergipe: ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
+      tocantins: ["Palmas", "Araguaína", "Gurupi"]
+    };
+    
+
+  const selectEstado = document.querySelector('select[name="estado"]');
+  const selectCidade = document.querySelector('select[name="cidade"]');
+
+  selectEstado.addEventListener('change', function() {
+    const estadoSelecionado = this.value;
+    
+    // Limpa as opções do dropdown de cidades
+    selectCidade.innerHTML = '<option selected disabled class="form_select_option" value="">Selecione</option>';
+    
+    // Verifica se um estado foi selecionado
+    if (estadoSelecionado) {
+      const cidades = cidadesPorEstado[estadoSelecionado];
+      
+      // Adiciona as opções de cidades no dropdown correspondente
+      cidades.forEach((cidade) => {
+        const optionElement = document.createElement('option');
+        optionElement.textContent = cidade;
+        optionElement.value = cidade;
+        selectCidade.appendChild(optionElement);
+      });
+    }
+  });
+  
+  
+ 
+</script>
