@@ -1,9 +1,10 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/cadfuncionario.css'%}"
-<div class="container_form">
-    {% include '../home/home.html'%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cadfuncionario.css'%}">
+{% include '../home/home.html'%}
+<div class="cadfuncionario">
 
-  <h1>CADASTRO DE FUNCIONARIOS</h1>
+
+ <center><h1>CADASTRO DE FUNCIONARIOS</h1></center> 
 
   <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
     {% csrf_token %} 
@@ -156,17 +157,23 @@
           <div class="form_message">
               
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
+              <p></p>
               <textarea name="mensagem" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
 
           </div>
 
           <div class="submit">
 
-            <input type="hidden" name="acao" value="enviar">
             <button type="submit" name="Submit" class="submit_btn" >Cadastrar</button>
           
           </div>
-</div><!--container_form-->
+  
+  
+  
+        </form>
+      </div><!--container_form-->
+
+
 <footer class="f">
     Rodapé da página
 </footer>

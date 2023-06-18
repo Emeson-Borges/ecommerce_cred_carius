@@ -1,38 +1,6 @@
-nav {
-	list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #00CED1;
-
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-family:'open_sansregular';
-  font-weight: bold;
-
-}
-
-li a {
-    background-color: #00CED1;
-  
-}
-
-body {
-  background-color: #00CED1;
-}
 
 .page{
-    width: 800px;
+    width: 500px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -62,10 +30,13 @@ body {
 }
 
 .form {
-  width: 90%;
+    width: 60%;
     margin: 0 auto;
     margin-bottom: 50px;
     position: relative;
+    background-color: #e3e3e3 ;
+    padding: 20px;
+    height: 155vh;
 }
 
 .form input{
@@ -78,7 +49,6 @@ body {
   border-radius: 2px;
 }
 
-.submit { width:100%; float:left; }
 
 .submit_btn {
     float: left;
@@ -87,7 +57,7 @@ body {
     border: none;
     outline: none;
     background-color: #2F4F4F;
-    color: #fff;
+    color: #2e8586;
     text-shadow: 0 0 5px rgb(0, 0, 0);
     font-family: inherit;
     font-size: 27px;

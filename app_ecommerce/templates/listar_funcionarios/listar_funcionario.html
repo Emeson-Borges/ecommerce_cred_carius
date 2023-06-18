@@ -1,3 +1,5 @@
+{% include '../home/home.html'%}
+
 {% block title %}Lista de Funcionários{% endblock %}
 {% block conteudo %}
 <div class="container">
@@ -23,10 +25,12 @@ cadastrados.
   <tr>
   <th>ID</th>
   <th>Nome</th>
-  <th>Sobrenome</th>
+  <th>CPF</th>
   <th>Estado Civil</th>
   <th>Sexo</th>
-  <th>Ações</th>
+  <th>Email</th>
+  <th>Contato</th>
+  <th>Cidade</th>
   </tr>
 </thead>
 <tbody>
@@ -34,8 +38,12 @@ cadastrados.
   <tr>
   <td>{{ f.id }}</td>
   <td>{{ f.nome }}</td>
+  <td>{{ f.cpf }}</td>
   <td>{{ f.estadocivil }}</td>
   <td>{{ f.sexo }}</td>
+  <td>{{ f.email}}</td>
+  <td>{{ f.contato}}</td>
+  <td>{{ f.cidade}}</td>
   <td>
 <a href="{% url 'alterar_funcionario' pk=f.id %}"
 class="btn btn-info">
