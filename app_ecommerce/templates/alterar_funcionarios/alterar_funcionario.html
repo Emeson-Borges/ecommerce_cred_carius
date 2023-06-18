@@ -228,48 +228,48 @@
           <span class="legenda">Setor</span>
           {%if funcionario.setor == 'Vendas'%}
             <div class="check-btn">
-                <input type="checkbox" class="form_new_input" id="html5" name="aprender" checked value="html5">
+                <input type="radio" class="form_new_input" id="html5" name="aprender" checked value="html5">
                 <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
             </div>
           {% else %}
             <div class="check-btn">
-              <input type="checkbox" class="form_new_input" id="html5" name="aprender" value="html5">
+              <input type="radio" class="form_new_input" id="html5" name="aprender" value="html5">
               <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
             </div>
           {%endif%}
           
           {% if funcionario.setor == 'Entrega'%}
             <div class="check-btn">
-                <input type="checkbox" class="form_new_input" checked id="css3" name="aprender" value="css3">
+                <input type="radio" class="form_new_input" checked id="css3" name="aprender" value="css3">
                 <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
             </div>
           {% else %}
             <div class="check-btn">
-              <input type="checkbox" class="form_new_input" id="css3" name="aprender" value="css3">
+              <input type="radio" class="form_new_input" id="css3" name="aprender" value="css3">
               <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
             </div>
           {%endif%}
 
-          {% if funcionario.setor == 'Financeiro'%}
+          {% if funcionario.setor == 'Financeiro' %}
             <div class="check-btn">
-                <input type="checkbox" class="form_new_input" id="jquery" checked name="aprender" value="jquery">
+                <input type="radio" class="form_new_input" id="jquery" checked name="aprender" value="jquery">
                 <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
             </div>
           {% else %}
           <div class="check-btn">
-            <input type="checkbox" class="form_new_input" id="jquery" name="aprender" value="jquery">
+            <input type="radio" class="form_new_input" id="jquery" name="aprender" value="jquery">
             <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
         </div>
         {%endif%}
         
         {%if funcionario.setor == 'Cobrador'%}
             <div class="check-btn">
-                <input type="checkbox" class="form_new_input" id="wordpress" checked name="aprender" value="wordpress">
+                <input type="radio" class="form_new_input" id="wordpress" checked name="aprender" value="wordpress">
                 <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
             </div>
         {%else%}
           <div class="check-btn">
-            <input type="checkbox" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
+            <input type="radio" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
             <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
           </div>
         {% endif %}
