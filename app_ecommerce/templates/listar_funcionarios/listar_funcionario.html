@@ -1,5 +1,8 @@
 {% include '../home/home.html'%}
+{%load static %}
 
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/listar_funcionario.css'%}">
 {% block title %}Lista de Funcionários{% endblock %}
 {% block conteudo %}
 <div class="container">
@@ -14,47 +17,48 @@
         {% endfor %}
     </ul>
 {% endif %}
-<h5 class="card-title">Lista de Funcionário</h5>
+<center>
+<h1 class="card-title">LISTA DE FUNCIONÁRIOS</h1>
 {% if funcionarios|length > 0 %}
-<p class="card-text">
-Aqui está a lista de <code>Funcionários</code>
-cadastrados.
-</p>
+</center>
+
+<hr>
+
 <table class="table">
 <thead class="thead-dark">
   <tr>
-  <th>ID</th>
-  <th>Nome</th>
-  <th>CPF</th>
-  <th>Estado Civil</th>
-  <th>Sexo</th>
-  <th>Email</th>
-  <th>Contato</th>
-  <th>Cidade</th>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>CPF</th>
+    <th>Estado Civil</th>
+    <th>Sexo</th>
+    <th>Email</th>
+    <th>Contato</th>
+    <th>Cidade</th>
   </tr>
 </thead>
 <tbody>
   {% for f in funcionarios %}
   <tr>
-  <td>{{ f.id }}</td>
-  <td>{{ f.nome }}</td>
-  <td>{{ f.cpf }}</td>
-  <td>{{ f.estadocivil }}</td>
-  <td>{{ f.sexo }}</td>
-  <td>{{ f.email}}</td>
-  <td>{{ f.contato}}</td>
-  <td>{{ f.cidade}}</td>
-  <td>
-<a href="{% url 'alterar_funcionario' pk=f.id %}"
+    <td>{{ f.id }}</td>
+    <td>{{ f.nome }}</td>
+    <td>{{ f.cpf }}</td>
+    <td>{{ f.estadocivil }}</td>
+    <td>{{ f.sexo }}</td>
+    <td>{{ f.email}}</td>
+    <td>{{ f.contato}}</td>
+    <td>{{ f.cidade}}</td>
+    <td>
+    <a href="{% url 'alterar_funcionario' pk=f.id %}"
 class="btn btn-info">
 Atualizar
-</a>
-<a class="deletar" href="{% url 'deleta_funcionario' pk=f.id %}"
+    </a>
+    <a class="deletar" href="{% url 'deleta_funcionario' pk=f.id %}"
 class="btn btn-outline-danger">
 Excluir
-</a>
-</td>
-</tr>
+    </a>
+  </td>
+  </tr>
 {% endfor %}
 </tbody>
 </table>
