@@ -16,7 +16,7 @@
       
       <div class="form_grupo">
         <label for="CPF">CPF</label>
-        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="11" required value = "{{funcionario.cpf}}" />
+        <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" maxLength="11" required value = "{{funcionario.cpf}}" />
       </div>
 
       <div class="form_grupo">
@@ -36,7 +36,7 @@
 
       <div class="form_grupo">
           <label for="e-mail" class="form_label">Email</label>
-          <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required value="{{funcionario.email}}">
+          <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" value="{{funcionario.email}}" required >
       </div>
 
       <div class="form_grupo">
@@ -218,12 +218,12 @@
           <span class="legenda">Setor</span>
           {%if funcionario.setor == 'Vendas'%}
             <div class="check-btn">
-                <input type="radio" class="form_new_input" id="html5" name="aprender" checked value="html5">
+                <input type="radio" class="form_new_input" id="html5" name="aprender" checked value="vendas">
                 <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
             </div>
           {% else %}
             <div class="check-btn">
-              <input type="radio" class="form_new_input" id="html5" name="aprender" value="html5">
+              <input type="radio" class="form_new_input" id="html5" name="aprender" value="vendas">
               <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
             </div>
           {%endif%}
@@ -242,24 +242,24 @@
 
           {% if funcionario.setor == 'Financeiro' %}
             <div class="check-btn">
-                <input type="radio" class="form_new_input" id="jquery" checked name="aprender" value="jquery">
+                <input type="radio" class="form_new_input" id="jquery" checked name="aprender" value="Financeiro">
                 <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
             </div>
           {% else %}
           <div class="check-btn">
-            <input type="radio" class="form_new_input" id="jquery" name="aprender" value="jquery">
+            <input type="radio" class="form_new_input" id="jquery" name="aprender" value="Financeiro">
             <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
         </div>
         {%endif%}
         
         {%if funcionario.setor == 'Cobrador'%}
             <div class="check-btn">
-                <input type="radio" class="form_new_input" id="wordpress" checked name="aprender" value="wordpress">
+                <input type="radio" class="form_new_input" id="wordpress" checked name="aprender" value="Cobrador">
                 <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
             </div>
         {%else%}
           <div class="check-btn">
-            <input type="radio" class="form_new_input" id="wordpress" name="aprender" value="wordpress">
+            <input type="radio" class="form_new_input" id="wordpress" name="aprender" value="Cobrador">
             <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
           </div>
         {% endif %}
@@ -275,10 +275,26 @@
           <div class="submit">
 
             <input type="hidden" name="acao" value="enviar">
-            <button type="submit" name="Submit" class="submit_btn" >Alterar</button>
+            <button type="submit" name="Submit" class="submit_btn" id="alterar">Alterar</button>
           
           </div>
 </div><!--container_form-->
 <footer class="f">
     Rodapé da página
 </footer>
+
+<script type="module">
+  import Funcoes from '../funcoes.js'
+  const funcao        =  new Funcoes();
+  let cpf             = document.getElementById('cpf')
+  let botao_alterar   = document.getElementById('alterar')
+
+  botao_alterar.addEventListener(()=>{
+    event.preventDefault()
+    if(funcao.validaCPF(cpf)){
+      window.location.href = botao_alterar.submit; 
+    }else{
+      alert("CPF Inválido!")
+    }
+  })
+</script>

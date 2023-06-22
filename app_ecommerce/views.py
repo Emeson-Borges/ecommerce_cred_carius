@@ -99,6 +99,7 @@ def create_admin(request):
 def cad_funcionarios(request):
   if request.method == 'POST':
     nome        = request.POST['nome']
+    email       = request.POST['email']
     cpf         = request.POST['cpf']  
     rg          = request.POST['rg']                
     cidade      = request.POST['cidade']
@@ -114,7 +115,7 @@ def cad_funcionarios(request):
     print(observacao)
     cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
       rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato,
-      setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao)
+      setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao,email=email)
     
     cad_funcionarios.save()
     messages.success(request, 'Funcionário cadastrado com sucesso.')

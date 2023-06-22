@@ -21,7 +21,7 @@
 }
 
 .page p{
-  font-family:'open_sansregular';
+    font-family:'open_sansregular';
     font-size: 1.3em;
     color: #000000;
     border-bottom: 1px #f0eded solid;
@@ -36,7 +36,6 @@
     position: relative;
     background-color: #e3e3e3 ;
     padding: 20px;
-    height: 155vh;
 }
 
 .form input{

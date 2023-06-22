@@ -16,7 +16,7 @@
       
       <div class="form_grupo">
         <label for="CPF">CPF</label>
-        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="11" requirid />
+        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="11" required id="cpf" />
       </div>
 
       <div class="form_grupo">
@@ -164,7 +164,7 @@
 
           <div class="submit">
 
-            <button type="submit" name="Submit" class="submit_btn" >Cadastrar</button>
+            <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
           
           </div>
   
@@ -179,6 +179,7 @@
 </footer>
 
 <script>
+  
   const cidadesPorEstado = {
       acre: ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
       alagoas: ["Maceió", "Arapiraca", "Palmeira dos Índios"],
@@ -232,7 +233,21 @@
       });
     }
   });
+
   
-  
- 
+</script>
+<script type="module">
+  import Funcoes from '../funcoes.js'
+  const funcao        =  new Funcoes();
+  let cpf             = document.getElementById('cpf')
+  let botao_cadastrar = document.getElementById('cadastrar')
+
+  botao_cadastrar.addEventListener(()=>{
+    event.preventDefault()
+    if(funcao.validaCPF(cpf)){
+      window.location.href = botao_cadastrar.submit; 
+    }else{
+      alert("CPF Inválido!")
+    }
+  })
 </script>
