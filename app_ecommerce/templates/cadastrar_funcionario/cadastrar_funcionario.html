@@ -236,18 +236,37 @@
 
   
 </script>
-<script type="module">
-  import Funcoes from '../funcoes.js'
-  const funcao        =  new Funcoes();
-  let cpf             = document.getElementById('cpf')
-  let botao_cadastrar = document.getElementById('cadastrar')
+<script>
+  function validaCPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;
+  if (strCPF == "00000000000") return false;
 
-  botao_cadastrar.addEventListener(()=>{
-    event.preventDefault()
-    if(funcao.validaCPF(cpf)){
-      window.location.href = botao_cadastrar.submit; 
-    }else{
-      alert("CPF Inválido!")
-    }
-  })
+  for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+  Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+  Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+    return true;
+}
+  let cpf             = document.getElementById('cpf').value
+  let botao_alterar   = document.getElementById('alterar')
+  // EM PRODUÇÃO!!!!!!!!!!!
+  // botao_alterar.addEventListener('click',()=>{
+  //   event.preventDefault();
+  //   if(validaCPF(cpf)){
+  //     window.location.href = botao_alterar.submit; 
+  //   }else{
+  //     alert("CPF Inválido!")
+  //   }
+    
+  // })
 </script>
