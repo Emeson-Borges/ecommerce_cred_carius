@@ -1,11 +1,20 @@
+{% extends '../home/home.html'%}
 {% load static %}
+
+
+{%block title %}
+Cadastro de Funcionários
+{%endblock%}
+{%block content%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/cadfuncionario.css'%}">
-{% include '../home/home.html'%}
 <div class="cadfuncionario">
 
 
  <center><h1>CADASTRO DE FUNCIONARIOS</h1></center> 
 
+ {% if errors.error != None %}
+  <p>{{errors.error}}</p>
+ {% endif %}
   <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
     {% csrf_token %} 
       <div class="row">
@@ -237,6 +246,8 @@
   
 </script>
 <script>
+
+  //Função para validar CPF
   function validaCpf(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
     if (cpf == '') return false;
@@ -273,9 +284,13 @@
   let cpf             = document.getElementById('cpf')
   let botao_cadastrar   = document.getElementById('cadastrar');
   let form_cadastrar  = document.querySelector('.form')
+
+  //Função para remover a mascara
   function removerMascaraCPF(cpf) {
   return String(cpf).replace(/\D/g, '');
 }
+
+//validando o cpf e removendo a máscara
   botao_cadastrar.addEventListener('click',()=>{
     event.preventDefault();
     if(validaCpf(cpf.value)){
@@ -286,7 +301,7 @@
     }
     
   })
-
+  // Função para formatar a data de nascimento
   function formatarNascimento(input) {
   // Remove todos os caracteres que não sejam dígitos
   var valor = input.value.replace(/\D/g, '');
@@ -308,14 +323,14 @@
   }
  
 }
-
+//Enquanto o usuário digitar ele formata a data
 window.addEventListener("DOMContentLoaded", (event) => {
   let dataNascimento = document.getElementById('dtnasc_func')
   dataNascimento.addEventListener('input',()=>{
     formatarNascimento(dataNascimento)
 })
 });
-
+//Formatar CPF
 function formataCPF(input) {
   // Remove todos os caracteres que não sejam dígitos
   var valor = input.value.replace(/\D/g, '');
@@ -328,7 +343,7 @@ function formataCPF(input) {
   // Atualiza o valor do campo de entrada
   input.value = valor;
 }
-
+//Enquanto o usuário digitar ele irá formatar o cpf
 cpf.addEventListener('input', function() {
   formataCPF(this);
 });
@@ -337,3 +352,4 @@ cpf.addEventListener('input', function() {
 
 
 </script>
+{%endblock%}

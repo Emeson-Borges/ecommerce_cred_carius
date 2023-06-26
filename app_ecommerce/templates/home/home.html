@@ -6,9 +6,12 @@
 <head>
   
   <meta charset="UTF-8">
-  {% block title %}
-  <title>Cred-Cariús</title>
-  {% endblock %}
+  
+  <title>
+    {% block title %}
+    Cred-Cariús
+    {% endblock %}</title>
+  
 
 </head>
 
@@ -22,6 +25,8 @@
   <a href="{% url 'relatorios' %}">Relatórios</a>
 	<div class="animation start-home"></div>
 </nav>
+{%block content%}
 
+{%endblock%}
 </body>
 </html>

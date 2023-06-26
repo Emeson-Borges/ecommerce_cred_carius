@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.db import models
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import AdminForm
+from .forms import AdminForm,FuncionarioForm
 
 #Importar de onde vem os Models
 from app_funcionarios.models import Funcionarios
@@ -98,32 +98,38 @@ def create_admin(request):
 # Salvar na tabela Funcionários
 def cad_funcionarios(request):
   if request.method == 'POST':
-    nome        = request.POST['nome']
-    email       = request.POST['email']
-    cpf         = request.POST['cpf']  
-    rg          = request.POST['rg']                
-    cidade      = request.POST['cidade']
-    rua         = request.POST['rua']
-    bairro      = request.POST['bairro']
-    dtnasc_func = request.POST['dtnasc_func']
-    numero_casa = request.POST['numero_casa']
-    contato     = request.POST['contato']
-    estadocivil = request.POST['estadocivil']
-    sexo        = request.POST['sexo']
-    setor       = request.POST.getlist('setor')[0]
-    observacao  = request.POST.getlist('observacao')
-    estado      = request.POST['estado']
-    print(observacao)
-    cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
-      rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato,
-      setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao,email=email, estado=estado)
-    
-    cad_funcionarios.save()
-    messages.success(request, 'Funcionário cadastrado com sucesso.')
-    #Para depois que as rotas o update e delete tiverem sido feitos
-    return redirect('listar_funcionarios')
-  
-  return render(request, 'cadastrar_funcionario.html')
+    form = FuncionarioForm(request.POST)
+
+    if form.is_valid():
+      nome        = request.POST['nome']
+      email       = request.POST['email']
+      cpf         = request.POST['cpf']  
+      rg          = request.POST['rg']                
+      cidade      = request.POST['cidade']
+      rua         = request.POST['rua']
+      bairro      = request.POST['bairro']
+      dtnasc_func = request.POST['dtnasc_func']
+      numero_casa = request.POST['numero_casa']
+      contato     = request.POST['contato']
+      estadocivil = request.POST['estadocivil']
+      sexo        = request.POST['sexo']
+      setor       = request.POST.getlist('setor')[0]
+      observacao  = request.POST.getlist('observacao')
+      estado      = request.POST['estado']
+      print(observacao)
+      cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
+        rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato,
+        setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao,email=email, estado=estado)
+      
+      cad_funcionarios.save()
+      messages.success(request, 'Funcionário cadastrado com sucesso.')
+      #Para depois que as rotas o update e delete tiverem sido feitos
+      return redirect('listar_funcionarios')
+    else:
+        errors = {
+        'error': "Campos obrigatórios não preenchidos ou dados inválidos"
+    }
+        return render(request, 'cadastrar_funcionario/cadastrar_funcionario.html',errors)
 
 # Salvar na tabela Produtos
 def cad_produto(request):
@@ -161,18 +167,19 @@ def upd_funcionario(request):
      if request.method == 'POST':
        funcionario = Funcionarios.objects.get(id=request.POST['id'])
 
-       nome             = request.POST['nome']
-       cpf              = request.POST['cpf']  
-       rg               = request.POST['rg']                
-       cidade           = request.POST['cidade']
-       rua              = request.POST['rua']
-       bairro           = request.POST['bairro']
-       dtnasc_func      = request.POST['dtnasc_func']
-       numero_casa      = request.POST['numero_casa']
-       contato          = request.POST['contato']
-       sexo             = request.POST['sexo']
-       estado           = request.POST['estadocivil']
-       observacao       = request.POST['observacao']
+       nome                  = request.POST['nome']
+       cpf                   = request.POST['cpf']  
+       rg                    = request.POST['rg']                
+       cidade                = request.POST['cidade']
+       rua                   = request.POST['rua']
+       bairro                = request.POST['bairro']
+       dtnasc_func           = request.POST['dtnasc_func']
+       numero_casa           = request.POST['numero_casa']
+       contato               = request.POST['contato']
+       sexo                  = request.POST['sexo']
+       estadocivil           = request.POST['estadocivil']
+       estado                = request.POST['estado']
+       observacao            = request.POST['observacao']
        funcionario.nome = nome
        funcionario.cpf = cpf
        funcionario.rg = rg
@@ -185,6 +192,8 @@ def upd_funcionario(request):
        funcionario.sexo = sexo
        funcionario.estadocivil = estado
        funcionario.observacao = observacao
+       funcionario.estado     = estado
+       funcionario.estadocivil = estadocivil
        funcionario.save()  
        messages.success(request,'Funcionário Alterado!')
        return redirect('listar_funcionarios')
