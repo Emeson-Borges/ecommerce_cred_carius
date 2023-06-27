@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render
+from django import http
 from django.views.generic import TemplateView
 from django.db import models
 from django.contrib import messages
@@ -126,10 +127,9 @@ def cad_funcionarios(request):
       #Para depois que as rotas o update e delete tiverem sido feitos
       return redirect('listar_funcionarios')
     else:
-        errors = {
-        'error': "Campos obrigatórios não preenchidos ou dados inválidos"
-    }
-        return render(request, 'cadastrar_funcionario/cadastrar_funcionario.html',errors)
+       print("CPF: " ,request.POST['cpf'])
+       print(form.errors)
+       return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',form.errors)
 
 # Salvar na tabela Produtos
 def cad_produto(request):

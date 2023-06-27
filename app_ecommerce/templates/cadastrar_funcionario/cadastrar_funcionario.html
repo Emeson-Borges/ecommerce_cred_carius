@@ -12,11 +12,12 @@ Cadastro de Funcionários
 
  <center><h1>CADASTRO DE FUNCIONARIOS</h1></center> 
 
- {% if errors.error != None %}
-  <p>{{errors.error}}</p>
- {% endif %}
+
   <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
     {% csrf_token %} 
+    <div>
+      {{form.errors}}
+    </div>
       <div class="row">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
@@ -167,7 +168,7 @@ Cadastro de Funcionários
               
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
               <p></p>
-              <textarea name="mensagem" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
+              <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
 
           </div>
 
@@ -294,7 +295,8 @@ Cadastro de Funcionários
   botao_cadastrar.addEventListener('click',()=>{
     event.preventDefault();
     if(validaCpf(cpf.value)){
-      cpf.value = removerMascaraCPF(cpf)
+      cpf.value = removerMascaraCPF(cpf.value)
+
       form_cadastrar.submit(); 
     }else{
       alert("CPF Inválido!")
