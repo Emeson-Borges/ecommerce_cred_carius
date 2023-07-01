@@ -15,7 +15,7 @@ class Funcionarios(models.Model):
   sexo             = models.CharField(max_length=9, verbose_name="Sexo do funcionário", null = False)
   estadocivil      = models.CharField(max_length=15, verbose_name="Estado civil", null = False)
   setor            = models.CharField(max_length=16, verbose_name="Setor", null = False)
-  observacao       = models.TextField(verbose_name="Observação"'', null = False) 
+  observacao       = models.TextField(verbose_name="Observação", null = False) 
   estado           = models.CharField(max_length=50, verbose_name="Estado de Origem", null=False) 
   
   class Meta:
