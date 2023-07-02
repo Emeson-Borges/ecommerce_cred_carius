@@ -127,9 +127,13 @@ def cad_funcionarios(request):
       #Para depois que as rotas o update e delete tiverem sido feitos
       return redirect('listar_funcionarios')
     else:
-       print("CPF: " ,request.POST['cpf'])
-       print(form.errors)
-       return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',form.errors)
+       data = {
+          'Cidade':form.cleaned_data['cidade'],
+          'Estado':form.cleaned_data['estado'],
+          'form'  :form
+       }
+       print(form.cleaned_data['cidade'])
+       return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'dados':data})
 
 # Salvar na tabela Produtos
 def cad_produto(request):
