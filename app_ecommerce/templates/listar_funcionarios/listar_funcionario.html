@@ -11,6 +11,8 @@ Listar funcionário
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="card">
 <div class="card-body">
+
+<hr>
   {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -65,15 +67,12 @@ Excluir
 </table>
 {% else %}
 <div class="text-center mt-5 mb-5 jumbotron">
-<h5>Nenhum <code>Funcionário</code> cadastrado ainda.</h5>
+<h3>Nenhum Funcionário cadastrado ainda.</h3>
 </div>
 {% endif %}
 <hr />
 <div class="text-right">
-<a class="btn btn-primary"
-href="{% url 'cadastrar_funcionario' %}">
-Cadastrar Funcionário
-</a>
+<a class="btn btn-primary" href="{% url 'cadastrar_funcionario' %}"> Cadastrar Funcionário </a>
 </div>
 </div>
 </div>
