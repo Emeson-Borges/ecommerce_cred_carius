@@ -11,7 +11,7 @@ Cadastro de Funcionários
 
 
  <center><h1>CADASTRO DE FUNCIONARIOS</h1></center> 
- {% if data.form.errors %}
+ {% if form.errors %}
  <div class="alert alert-danger">
  {% for field in form %}
      {% for error in field.errors %}
@@ -35,8 +35,8 @@ Cadastro de Funcionários
       <div class="row">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
-          {%if data.form.errors%}
-          {{fdata.form.nome}}
+          {%if form.errors%}
+          {{form.nome}}
           {%else%}
           <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required>
           {%endif%}
@@ -82,8 +82,8 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
           <label for="e-mail" class="form_label">Email</label>
-          {%if data.form.errors%}
-          {{data.form.email}}
+          {%if form.errors%}
+          {{form.email}}
           {%else%}
           <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required>
           {%endif%}
@@ -91,8 +91,8 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
           <label for="estadocivil" class="text">Estado civil</label>
-          {%if data.form.errors%}
-           {{data.form.estadocivil}}
+          {%if form.errors%}
+           {{form.estadocivil}}
           {%else%}
             <select name="estadocivil" class="dropdown" id="estadocivil" required>
               
@@ -127,8 +127,8 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="estado" class="text">Estado</label>
-        {%if data.form.errors%}
-        {{data.form.estado}}
+        {%if form.errors%}
+        {{form.estado}}
         {% else %}
         <select name="estado" class="dropdown" required>
           <option selected disabled class="form_select_option" value="">Selecione</option> 
@@ -176,7 +176,7 @@ Cadastro de Funcionários
       
       <div class="form_grupo">
         <label for="Rua">Rua</label>
-        {% if data.form.errors%}
+        {% if form.errors%}
         {{form.rua}}
         {% else %}
         <input type="text" name="rua" placeholder="Digite o nome da sua rua" />
@@ -185,8 +185,8 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="Bairro">Bairro</label>
-        {% if data.form.errors %}
-        {{data.form.bairro}}
+        {% if form.errors %}
+        {{form.bairro}}
         {%else%}
         <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" />
         {%endif%}
@@ -194,8 +194,8 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="Numero">Numero</label>
-        {%if data.form.errors %}
-        {{data.form.numero_casa}}
+        {%if form.errors %}
+        {{form.numero_casa}}
         {% else %}
         <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" />  
         {%endif%}      
@@ -205,8 +205,8 @@ Cadastro de Funcionários
       <div class="form_grupo">
 
           <span class="legenda">Setor</span>
-          {% if data.form.errors %}
-          {{data.form.setor}}
+          {% if form.errors %}
+          {{form.setor}}
           
           {% else %}
           <div class="check-btn">
@@ -234,8 +234,8 @@ Cadastro de Funcionários
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
               <p></p>
 
-              {% if data.form.errors %}
-              {{data.form.observacao}}
+              {% if form.errors %}
+              {{form.observacao}}
               {% else %}
               <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
               {%endif%}
@@ -246,7 +246,6 @@ Cadastro de Funcionários
             <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
           
           </div>
-  
   
         </form>
       </div><!--container_form-->
