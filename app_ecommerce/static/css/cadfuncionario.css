@@ -78,3 +78,12 @@
     background-color: #444444;
     transform: scale(1.03);
 }
+
+.form-error{
+    background-color: rgb(252, 143, 179);
+    border-radius: 5px;
+}
+
+input.form-error{
+    background-color: rgb(252, 143, 179);
+}

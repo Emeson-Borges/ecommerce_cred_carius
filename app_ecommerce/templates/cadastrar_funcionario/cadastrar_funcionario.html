@@ -30,12 +30,20 @@ Cadastro de Funcionários
  {% endfor %}
 </div>
 {% endif %}
+
+{%if mensagem%}
+<div class="alert alert-danger">
+  <strong>{{mensagem}}</strong>
+</div>
+{%endif%}
+
+<p></p>
   <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
     {% csrf_token %} 
       <div class="row">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
-          {%if form.errors%}
+          {%if form.errors or mensagem%}
           {{form.nome}}
           {%else%}
           <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required>
@@ -46,8 +54,8 @@ Cadastro de Funcionários
       
       <div class="form_grupo">
         <label for="CPF">CPF</label>
-        {%if data.form.errors%}
-        {{data.form.cpf}}
+        {%if  form.errors or mensagem%}
+        {{form.cpf}}
         {% else %}
         <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="14" required id="cpf" />
         {%endif%}
@@ -56,7 +64,9 @@ Cadastro de Funcionários
       <div class="form_grupo">
         <label for="RG">RG</label>
         {%if form.errors%}
-        {{data.form.rg}}
+        {{form.rg}}
+        {%elif mensagem%}
+        {{form.rg}}
         {%else%}
         <input type="text" name="rg" placeholder="Digite seu RG" />
         {%endif%}
@@ -64,8 +74,10 @@ Cadastro de Funcionários
     </div>
       <div class="form_grupo">
         <label for="dtnasc">Data Nascimento</label>
-        {% if data.form.errors%}
-        {{data.form.dtnasc_func}}
+        {% if  form.errors%}
+        {{form.dtnasc_func}}
+        {%elif mensagem%}
+        {{form.dtnasc_func}}
         {%else%}
         <input type="text" name="dtnasc_func" id="dtnasc_func" maxlength="10" placeholder="Digite sua Data de Nascimento" />
         {%endif%}
@@ -73,8 +85,10 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="Contato">Contato</label>
-        {% if form.contato%}
-        {form.contato}
+        {% if form.errors%}
+        {{form.contato}}
+        {%elif mensagem%}
+        {{form.contato}}
         {% else %}
         <input type="text" name="contato" placeholder="Digite o número de celular" />
         {%endif%}
@@ -83,6 +97,8 @@ Cadastro de Funcionários
       <div class="form_grupo">
           <label for="e-mail" class="form_label">Email</label>
           {%if form.errors%}
+          {{form.email}}
+          {%elif mensagem%}
           {{form.email}}
           {%else%}
           <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required>
@@ -93,6 +109,8 @@ Cadastro de Funcionários
           <label for="estadocivil" class="text">Estado civil</label>
           {%if form.errors%}
            {{form.estadocivil}}
+          {%elif mensagem%}
+            {{form.estadocivil}}
           {%else%}
             <select name="estadocivil" class="dropdown" id="estadocivil" required>
               
@@ -110,15 +128,17 @@ Cadastro de Funcionários
 
           <span class="legenda">Sexo:</span>
           {% if form.errors%}
-            {{data.form.sexo}}
+            {{form.sexo}}
+          {%elif mensagem%}
+            {{form.sexo}}
           {%else%}
           <div class="radio-btn">
-              <input type="radio" class="form_new_input" id="masculino" name="sexo" value="Masculino" required="required">
+              <input type="radio" class="form_nput" id="masculino" name="sexo" value="Masculino" required="required">
               <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
           </div>
 
           <div class="radio-btn">
-              <input type="radio" class="form_new_input" id="feminino" name="sexo" value="Feminino" required="required">
+              <input type="radio" class="form_input" id="feminino" name="sexo" value="Feminino" required="required">
               <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
           </div>
           {%endif%}
@@ -127,9 +147,6 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="estado" class="text">Estado</label>
-        {%if form.errors%}
-        {{form.estado}}
-        {% else %}
         <select name="estado" class="dropdown" required>
           <option selected disabled class="form_select_option" value="">Selecione</option> 
           <option value="acre">Acre</option>
@@ -160,7 +177,7 @@ Cadastro de Funcionários
           <option value="sergipe">Sergipe</option>
           <option value="tocantins">Tocantins</option>
         </select>
-        {%endif%}
+      
       </div>
       
       <div class="form_grupo">
@@ -178,6 +195,8 @@ Cadastro de Funcionários
         <label for="Rua">Rua</label>
         {% if form.errors%}
         {{form.rua}}
+        {%elif mensagem%}
+        {{form.rua}}
         {% else %}
         <input type="text" name="rua" placeholder="Digite o nome da sua rua" />
         {%endif%}
@@ -187,6 +206,8 @@ Cadastro de Funcionários
         <label for="Bairro">Bairro</label>
         {% if form.errors %}
         {{form.bairro}}
+        {%elif mensagem%}
+        {{form.bairro}}
         {%else%}
         <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" />
         {%endif%}
@@ -194,7 +215,9 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="Numero">Numero</label>
-        {%if form.errors %}
+        {%if  form.errors %}
+        {{form.numero_casa}}
+        {%elif mensagem%}
         {{form.numero_casa}}
         {% else %}
         <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" />  
@@ -205,27 +228,28 @@ Cadastro de Funcionários
       <div class="form_grupo">
 
           <span class="legenda">Setor</span>
-          {% if form.errors %}
+          {% if  form.errors %}
           {{form.setor}}
-          
+          {%elif mensagem%}
+          {{form.setor}}
           {% else %}
           <div class="check-btn">
-            <input type="radio" class="form_new_input" id="html5" name="setor" value="Vendas">
+            <input type="radio" class="form_input" id="html5" name="setor" value="Vendas">
             <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
         </div>
 
         <div class="check-btn">
-            <input type="radio" class="form_new_input" id="css3" name="setor" value="Entrega">
+            <input type="radio" class="form_input" id="css3" name="setor" value="Entrega">
             <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
         </div>
 
         <div class="check-btn">
-            <input type="radio" class="form_new_input" id="jquery" name="setor" value="Financeiro">
+            <input type="radio" class="form_input" id="jquery" name="setor" value="Financeiro">
             <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
         </div>
 
         <div class="check-btn">
-            <input type="radio" class="form_new_input" id="wordpress" name="setor" value="Cobrador">
+            <input type="radio" class="form_input" id="wordpress" name="setor" value="Cobrador">
             <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
         </div>
             {% endif %}
@@ -234,13 +258,18 @@ Cadastro de Funcionários
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
               <p></p>
 
-              {% if form.errors %}
+              {% if  form.errors %}
+              {{form.observacao}}
+              {%elif mensagem%}
               {{form.observacao}}
               {% else %}
               <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
               {%endif%}
             </div>
-
+            {%if form.errors%}
+            <input  type="hidden" id="cidade" value="{{cidade}}">
+            <input  type="hidden" id="estado" value="{{estado}}">
+            {%endif%}
           <div class="submit">
 
             <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
@@ -435,6 +464,12 @@ window.onload = (event)=>{
       formataCPF(cpf);
     }
   
+campos = document.querySelectorAll('.form-error')
 
+campos.forEach(function(campo) {
+  campo.addEventListener('click', function() {
+   campo.style.backgroundColor = "#DCDCDC"
+  });
+});
 </script>
 {%endblock%}

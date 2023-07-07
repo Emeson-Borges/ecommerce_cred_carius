@@ -100,34 +100,121 @@ def create_admin(request):
 def cad_funcionarios(request):
   if request.method == 'POST':
     form = FuncionarioForm(request.POST)
-
+     
     if form.is_valid():
-      nome        = request.POST['nome']
-      email       = request.POST['email']
-      cpf         = request.POST['cpf']  
-      rg          = request.POST['rg']                
-      cidade      = request.POST['cidade']
-      rua         = request.POST['rua']
-      bairro      = request.POST['bairro']
-      dtnasc_func = request.POST['dtnasc_func']
-      numero_casa = request.POST['numero_casa']
-      contato     = request.POST['contato']
-      estadocivil = request.POST['estadocivil']
-      sexo        = request.POST['sexo']
-      setor       = request.POST.getlist('setor')[0]
-      observacao  = request.POST.getlist('observacao')
-      estado      = request.POST['estado']
-      print(observacao)
-      cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
-        rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato,
-        setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao,email=email, estado=estado)
+      form.fields['nome'].widget.attrs['class']   = 'form_input'
+      form.fields['email'].widget.attrs['class']  = 'form_input'
+      form.fields['cpf'].widget.attrs['class']    = 'form_input'
+      form.fields['rg'].widget.attrs['class']     = 'form_input'
+      form.fields['cidade'].widget.attrs['class'] = 'form_select_option'
+      form.fields['rua'].widget.attrs['class']    = 'form_input'
+      form.fields['bairro'].widget.attrs['class'] = 'form_input'
+      form.fields['dtnasc_func'].widget.attrs['class'] = 'form_input'
+      form.fields['numero_casa'].widget.attrs['class'] = 'form_input'
+      form.fields['contato'].widget.attrs['class'] = 'form_input'
+      form.fields['estadocivil'].widget.attrs['class'] = 'form-input'
+      form.fields['sexo'].widget.attrs['class'] = 'form_input'
+      form.fields['setor'].widget.attrs['class'] = 'form-input'
+      form.fields['observacao'].widget.attrs['class'] = 'form_input'
+      form.fields['estado'].widget.attrs['class'] = 'form_select_option'
+      #Checa se já há o mesmo cpf no banco
+      if Funcionarios.objects.filter(cpf = form.cleaned_data['cpf']).exists():
+         form.fields['cpf'].widget.attrs['class']    = 'form-error'
+         return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse CPF',
+                                                                                     'form':form})
+      #Checa se já há o mesmo rg no banco
+      elif Funcionarios.objects.filter(rg = form.cleaned_data['rg']).exists():
+         form.fields['rg'].widget.attrs['class']    = 'form-error'
+         return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse RG',
+                                                                                   'form':form})
+      #Checa se já há o mesmo email no banco
+      elif Funcionarios.objects.filter(email = form.cleaned_data['email']).exists():
+         form.fields['email'].widget.attrs['class']    = 'form-error'
+         return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse RG',
+                                                                                   'form':form})
+      else:
+        nome        = request.POST['nome']
+        email       = request.POST['email']
+        cpf         = request.POST['cpf']  
+        rg          = request.POST['rg']                
+        cidade      = request.POST['cidade']
+        rua         = request.POST['rua']
+        bairro      = request.POST['bairro']
+        dtnasc_func = request.POST['dtnasc_func']
+        numero_casa = request.POST['numero_casa']
+        contato     = request.POST['contato']
+        estadocivil = request.POST['estadocivil']
+        sexo        = request.POST['sexo']
+        setor       = request.POST.getlist('setor')[0]
+        observacao  = form.cleaned_data['observacao']
+        estado      = request.POST['estado']
+        print(estado)
+        cad_funcionarios = Funcionarios.objects.create(nome=nome,cpf=cpf,rg=rg,cidade=cidade,\
+          rua=rua,bairro=bairro,dtnasc_func=dtnasc_func,numero_casa=numero_casa,contato=contato,
+          setor=setor,sexo=sexo,estadocivil=estadocivil,observacao = observacao,email=email, estado=estado)
       
       cad_funcionarios.save()
       messages.success(request, 'Funcionário cadastrado com sucesso.')
       #Para depois que as rotas o update e delete tiverem sido feitos
       return redirect('listar_funcionarios')
     else:
-       return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form})
+       if 'nome' in form.errors:
+           form.fields['nome'].widget.attrs['class'] = 'form-error'
+
+       if 'cpf' in form.errors:
+            form.fields['cpf'].widget.attrs['class'] = 'form-error'
+
+       if 'email' in form.errors:
+            form.fields['email'].widget.attrs['class'] = 'form-error'
+
+       if 'rg' in form.errors:
+          form.fields['rg'].widget.attrs['class'] = 'form-error'
+
+       if 'email' in form.errors:
+          form.fields['email'].widget.attrs['class'] = 'form-error'
+      
+       if 'cidade' in form.errors:
+          form.fields['cidade'].widget.attrs['class'] = 'form-error'
+       
+       if 'estado' in form.errors:
+          form.fields['estado'].widget.attrs['class'] = 'form-error'
+
+       if 'rua' in form.errors:
+          form.fields['rua'].widget.attrs['class'] = 'form-error'
+
+       if 'bairro' in form.errors:
+          form.fields['bairro'].widget.attrs['class'] = 'form-error'
+
+       if 'numero_casa' in form.errors:
+          form.fields['numero_casa'].widget.attrs['class'] = 'form-error'
+
+       if 'dtnasc_func' in form.errors:
+          form.fields['dtnasc_func'].widget.attrs['class'] = 'form-error'
+
+       if 'contato' in form.errors:
+          form.fields['contato'].widget.attrs['class'] = 'form-error'
+      
+       if 'estadocivil' in form.errors:
+          form.fields['estadocivil'].widget.attrs['class'] = 'form-error'
+      
+       if 'sexo' in form.errors:
+          form.fields['sexo'].widget.attrs['class'] = 'form-error'
+       
+       if 'setor' in form.errors:
+          form.fields['setor'].widget.attrs['class'] = 'form-error'
+
+       if 'observacao' in form.errors:
+          form.fields['observacao'].widget.attrs['class'] = 'form-error'
+
+       if form.cleaned_data.get('estado') != '' and form.cleaned_data.get('cidade') != '' :  
+          
+          estado = form.cleaned_data.get('estado')
+          cidade = form.cleaned_data.get('cidade')
+          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form,
+                                                                                    'cidade':cidade,
+                                                                                    'estado':estado})
+       else:
+          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form})
 
 # Salvar na tabela Produtos
 def cad_produto(request):
@@ -152,7 +239,7 @@ def cad_produto(request):
 def deleta_funcionario(request,pk):
    funcionario=Funcionarios.objects.get(id=pk)
    funcionario.delete()
-   messages.success(request,'Funcionário Deletado!')
+   messages.warning(request,'Funcionário Deletado!')
    return redirect('listar_funcionarios')
 
 
@@ -163,37 +250,110 @@ def alterar_funcionario(request,pk):
    
 def upd_funcionario(request):
      if request.method == 'POST':
-       funcionario = Funcionarios.objects.get(id=request.POST['id'])
+       form = FuncionarioForm(request.POST)
+       if form.is_valid():
 
-       nome                  = request.POST['nome']
-       cpf                   = request.POST['cpf']  
-       rg                    = request.POST['rg']                
-       cidade                = request.POST['cidade']
-       rua                   = request.POST['rua']
-       bairro                = request.POST['bairro']
-       dtnasc_func           = request.POST['dtnasc_func']
-       numero_casa           = request.POST['numero_casa']
-       contato               = request.POST['contato']
-       sexo                  = request.POST['sexo']
-       estadocivil           = request.POST['estadocivil']
-       estado                = request.POST['estado']
-       observacao            = request.POST['observacao']
-       funcionario.nome = nome
-       funcionario.cpf = cpf
-       funcionario.rg = rg
-       funcionario.cidade = cidade
-       funcionario.rua = rua
-       funcionario.bairro = bairro
-       funcionario.dtnasc_func = dtnasc_func
-       funcionario.numero_casa = numero_casa
-       funcionario.contato = contato
-       funcionario.sexo = sexo
-       funcionario.estadocivil = estado
-       funcionario.observacao = observacao
-       funcionario.estado     = estado
-       funcionario.estadocivil = estadocivil
-       funcionario.save()  
-       messages.success(request,'Funcionário Alterado!')
-       return redirect('listar_funcionarios')
+        form.fields['nome'].widget.attrs['class']   = 'form_input'
+        form.fields['email'].widget.attrs['class']  = 'form_input'
+        form.fields['cpf'].widget.attrs['class']    = 'form_input'
+        form.fields['rg'].widget.attrs['class']     = 'form_input'
+        form.fields['cidade'].widget.attrs['class'] = 'form_select_option'
+        form.fields['rua'].widget.attrs['class']    = 'form_input'
+        form.fields['bairro'].widget.attrs['class'] = 'form_input'
+        form.fields['dtnasc_func'].widget.attrs['class'] = 'form_input'
+        form.fields['numero_casa'].widget.attrs['class'] = 'form_input'
+        form.fields['contato'].widget.attrs['class'] = 'form_input'
+        form.fields['estadocivil'].widget.attrs['class'] = 'form-input'
+        form.fields['sexo'].widget.attrs['class'] = 'form_input'
+        form.fields['setor'].widget.attrs['class'] = 'form-input'
+        form.fields['observacao'].widget.attrs['class'] = 'form_input'
+        form.fields['estado'].widget.attrs['class'] = 'form_select_option'
+        funcionario = Funcionarios.objects.get(id=request.POST['id'])
+        nome                  = request.POST['nome']
+        cpf                   = request.POST['cpf']  
+        rg                    = request.POST['rg']                
+        cidade                = request.POST['cidade']
+        rua                   = request.POST['rua']
+        bairro                = request.POST['bairro']
+        dtnasc_func           = request.POST['dtnasc_func']
+        numero_casa           = request.POST['numero_casa']
+        contato               = request.POST['contato']
+        sexo                  = request.POST['sexo']
+        estadocivil           = request.POST['estadocivil']
+        estado                = request.POST['estado']
+        observacao            = request.POST['observacao']
+        funcionario.nome = nome
+        funcionario.cpf = cpf
+        funcionario.rg = rg
+        funcionario.cidade = cidade
+        funcionario.rua = rua
+        funcionario.bairro = bairro
+        funcionario.dtnasc_func = dtnasc_func
+        funcionario.numero_casa = numero_casa
+        funcionario.contato = contato
+        funcionario.sexo = sexo
+        funcionario.estadocivil = estado
+        funcionario.observacao = observacao
+        funcionario.estado     = estado
+        funcionario.estadocivil = estadocivil
+        funcionario.save()  
+        messages.success(request,'Funcionário Alterado!')
+        return redirect('listar_funcionarios')
+       else:
+        if 'nome' in form.errors:
+           form.fields['nome'].widget.attrs['class'] = 'form-error'
+
+        if 'cpf' in form.errors:
+              form.fields['cpf'].widget.attrs['class'] = 'form-error'
+
+        if 'email' in form.errors:
+              form.fields['email'].widget.attrs['class'] = 'form-error'
+
+        if 'rg' in form.errors:
+            form.fields['rg'].widget.attrs['class'] = 'form-error'
+
+        if 'email' in form.errors:
+            form.fields['email'].widget.attrs['class'] = 'form-error'
+        
+        if 'cidade' in form.errors:
+            form.fields['cidade'].widget.attrs['class'] = 'form-error'
+        
+        if 'estado' in form.errors:
+            form.fields['estado'].widget.attrs['class'] = 'form-error'
+
+        if 'rua' in form.errors:
+            form.fields['rua'].widget.attrs['class'] = 'form-error'
+
+        if 'bairro' in form.errors:
+            form.fields['bairro'].widget.attrs['class'] = 'form-error'
+
+        if 'numero_casa' in form.errors:
+            form.fields['numero_casa'].widget.attrs['class'] = 'form-error'
+
+        if 'dtnasc_func' in form.errors:
+            form.fields['dtnasc_func'].widget.attrs['class'] = 'form-error'
+
+        if 'contato' in form.errors:
+            form.fields['contato'].widget.attrs['class'] = 'form-error'
+        
+        if 'estadocivil' in form.errors:
+            form.fields['estadocivil'].widget.attrs['class'] = 'form-error'
+        
+        if 'sexo' in form.errors:
+            form.fields['sexo'].widget.attrs['class'] = 'form-error'
+        
+        if 'setor' in form.errors:
+            form.fields['setor'].widget.attrs['class'] = 'form-error'
+
+       if 'observacao' in form.errors:
+          form.fields['observacao'].widget.attrs['class'] = 'form-error'
+       id = request.POST['id']
+       estado = form.cleaned_data['estado']
+       cidade = form.cleaned_data['cidade']
+       return render(request,'alterar_funcionarios/alterar_funcionario.html',{'form':form,
+                                                                                'id' : id,
+                                                                              'estado':estado,
+                                                                              'cidade':cidade})
+          
 # Salvar na tabela Vendas
 

@@ -14,7 +14,11 @@ Listar funcionário
   {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>Funcionário alterado com sucesso!</li>
+          {% if message.tags == 'sucess' %}
+            <li class="sucess">Funcionário Alterado com Sucesso!</li>
+          {% elif message.tags == 'warning' %}
+            <li class="sucess">Funcionário Deletado com Sucesso!</li>
+          {% endif %}
         {% endfor %}
     </ul>
 {% endif %}
