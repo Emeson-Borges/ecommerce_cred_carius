@@ -130,7 +130,7 @@ def cad_funcionarios(request):
       #Checa se já há o mesmo email no banco
       elif Funcionarios.objects.filter(email = form.cleaned_data['email']).exists():
          form.fields['email'].widget.attrs['class']    = 'form-error'
-         return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse RG',
+         return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse Email',
                                                                                    'form':form})
       else:
         nome        = request.POST['nome']

@@ -10,7 +10,7 @@ Cadastro de Funcionários
 <div class="cadfuncionario">
 
 
- <center><h1>CADASTRO DE FUNCIONARIOS</h1></center> 
+ <center><h1 class="title">CADASTRO DE FUNCIONARIOS</h1></center> 
  {% if form.errors %}
  <div class="alert alert-danger">
  {% for field in form %}
@@ -40,24 +40,25 @@ Cadastro de Funcionários
 <p></p>
   <form class="form" action="{% url 'cad_funcionarios' %}" method="POST">
     {% csrf_token %} 
-      <div class="row">
+      <div class="container-form">
+      <div class="coluna">
       <div class="form_grupo">
           <label for="nome" class="form_label">Nome</label>
           {%if form.errors or mensagem%}
           {{form.nome}}
           {%else%}
-          <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required>
+          <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome do Funcionário" autofocus="true" required>
           {%endif%}
          
                
-        </div>
+      </div>
       
       <div class="form_grupo">
         <label for="CPF">CPF</label>
         {%if  form.errors or mensagem%}
         {{form.cpf}}
         {% else %}
-        <input type="text" name="cpf" placeholder="Digite seu CPF" maxLength="14" required id="cpf" />
+        <input type="text" name="cpf" placeholder="CPF do Funcionário" maxLength="14" required id="cpf" />
         {%endif%}
       </div>
 
@@ -68,10 +69,9 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.rg}}
         {%else%}
-        <input type="text" name="rg" placeholder="Digite seu RG" />
+        <input type="text" name="rg" placeholder="RG do Funcionário" />
         {%endif%}
       </div>
-    </div>
       <div class="form_grupo">
         <label for="dtnasc">Data Nascimento</label>
         {% if  form.errors%}
@@ -79,7 +79,7 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.dtnasc_func}}
         {%else%}
-        <input type="text" name="dtnasc_func" id="dtnasc_func" maxlength="10" placeholder="Digite sua Data de Nascimento" />
+        <input type="text" name="dtnasc_func" id="dtnasc_func" maxlength="10" placeholder="Data de Nascimento do Funcionário" />
         {%endif%}
       </div>
 
@@ -90,7 +90,7 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.contato}}
         {% else %}
-        <input type="text" name="contato" placeholder="Digite o número de celular" />
+        <input type="text" name="contato" placeholder="Telefone do funcionário" />
         {%endif%}
       </div>
 
@@ -123,8 +123,7 @@ Cadastro de Funcionários
           </select>
           {%endif%}
         </div>
-
-      <div class="form_grupo">
+        <div class="form_grupo">
 
           <span class="legenda">Sexo:</span>
           {% if form.errors%}
@@ -133,12 +132,12 @@ Cadastro de Funcionários
             {{form.sexo}}
           {%else%}
           <div class="radio-btn">
-              <input type="radio" class="form_nput" id="masculino" name="sexo" value="Masculino" required="required">
+              <input type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
               <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
           </div>
 
           <div class="radio-btn">
-              <input type="radio" class="form_input" id="feminino" name="sexo" value="Feminino" required="required">
+              <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
               <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
           </div>
           {%endif%}
@@ -177,16 +176,21 @@ Cadastro de Funcionários
           <option value="sergipe">Sergipe</option>
           <option value="tocantins">Tocantins</option>
         </select>
-      
-      </div>
-      
-      <div class="form_grupo">
+        <div class="form_grupo">
         <label for="cidade" class="text">Cidade</label>
         <select name="cidade" class="dropdown" required>
           <option selected disabled class="form_select_option" value="">Selecione</option> 
         </select>
      
+       </div>
       </div>
+      </div>
+
+    
+      <div>
+      
+      
+    
       
       
       
@@ -198,7 +202,7 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.rua}}
         {% else %}
-        <input type="text" name="rua" placeholder="Digite o nome da sua rua" />
+        <input type="text" name="rua" placeholder="Rua em que o Funcionário mora"/>
         {%endif%}
       </div>
 
@@ -209,7 +213,7 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.bairro}}
         {%else%}
-        <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" />
+        <input type="text" name="bairro" placeholder="Bairro em que reside" />
         {%endif%}
       </div>
 
@@ -220,7 +224,7 @@ Cadastro de Funcionários
         {%elif mensagem%}
         {{form.numero_casa}}
         {% else %}
-        <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" />  
+        <input type="number" name="numero_casa" placeholder="Número da Casa" />  
         {%endif%}      
       </div>
 
@@ -236,22 +240,22 @@ Cadastro de Funcionários
           <div class="check-btn">
             <input type="radio" class="form_input" id="html5" name="setor" value="Vendas">
             <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
-        </div>
+          </div>
 
-        <div class="check-btn">
+          <div class="check-btn">
             <input type="radio" class="form_input" id="css3" name="setor" value="Entrega">
             <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
-        </div>
+          </div>
 
-        <div class="check-btn">
+          <div class="check-btn">
             <input type="radio" class="form_input" id="jquery" name="setor" value="Financeiro">
             <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
-        </div>
+          </div>
 
-        <div class="check-btn">
+          <div class="check-btn">
             <input type="radio" class="form_input" id="wordpress" name="setor" value="Cobrador">
             <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
-        </div>
+          </div>
             {% endif %}
           <div class="form_message">
               
@@ -270,14 +274,16 @@ Cadastro de Funcionários
             <input  type="hidden" id="cidade" value="{{cidade}}">
             <input  type="hidden" id="estado" value="{{estado}}">
             {%endif%}
-          <div class="submit">
-
-            <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
-          
           </div>
-  
-        </form>
-      </div><!--container_form-->
+          <div class="submit">
+            <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
+          </div>
+          
+        
+      
+        </form><!--container_form-->
+      
+    </div>
 <footer class="f">
     Rodapé da página
 </footer>
@@ -467,9 +473,15 @@ window.onload = (event)=>{
 campos = document.querySelectorAll('.form-error')
 
 campos.forEach(function(campo) {
-  campo.addEventListener('click', function() {
-   campo.style.backgroundColor = "#DCDCDC"
+  campo.addEventListener('input', function() {
+    if (campo.value != ""){
+      campo.style.backgroundColor = "#DCDCDC"
+    }else{
+      campo.style.backgroundColor = "rgb(252, 143, 179)"
+    }
+   
   });
+
 });
 </script>
 {%endblock%}

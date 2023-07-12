@@ -1,5 +1,6 @@
 {%extends '../home/home.html' %}
 {%load static %}
+
 {%block title %}
 Listar funcionário
 {%endblock%}
@@ -11,58 +12,72 @@ Listar funcionário
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="card">
 <div class="card-body">
-
-<hr>
   {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-          {% if message.tags == 'sucess' %}
+          {% if message.tags == 'success' %}
             <li class="sucess">Funcionário Alterado com Sucesso!</li>
           {% elif message.tags == 'warning' %}
-            <li class="sucess">Funcionário Deletado com Sucesso!</li>
+            <li class="warning">Funcionário Deletado com Sucesso!</li>
           {% endif %}
         {% endfor %}
     </ul>
 {% endif %}
 <center>
-<h1 class="card-title">LISTA DE FUNCIONÁRIOS</h1>
+<h1 class="title">LISTA DE FUNCIONÁRIOS</h1>
 {% if funcionarios|length > 0 %}
 </center>
-
-<hr>
-
 <table class="table">
 <thead class="thead-dark">
   <tr>
     <th>ID</th>
     <th>Nome</th>
     <th>CPF</th>
+    <th>RG</th>
     <th>Estado Civil</th>
     <th>Sexo</th>
     <th>Email</th>
     <th>Contato</th>
+    <th>Estado</th>
     <th>Cidade</th>
+    <th>Número da Casa</th>
+    <th>Rua</th>
+    <th>Bairro</th>
+    <th>Observação</th>
+    <th>Atualizar <i class="far fa-pencil"></i></th>
+    <th>Excluir <i class="far fa-trash"></i></th>
   </tr>
 </thead>
 <tbody>
   {% for f in funcionarios %}
-  <tr>
-    <td>{{ f.id }}</td>
+  <tr class="linha">
+    <td class="id" value={{f.id}}> {{f.id}} </td>
     <td>{{ f.nome }}</td>
     <td>{{ f.cpf }}</td>
+    <td>{{ f.rg}}</td>
     <td>{{ f.estadocivil }}</td>
     <td>{{ f.sexo }}</td>
     <td>{{ f.email}}</td>
     <td>{{ f.contato}}</td>
+    <td>{{ f.estado }}
     <td>{{ f.cidade}}</td>
+    <td>{{ f.numero_casa}}</td>
+    <td>{{ f.rua}}</td>
+    <td>{{ f.bairro }} </td>
+    <td>{{ f.observacao}} </td>
+
     <td>
     <a href="{% url 'alterar_funcionario' pk=f.id %}"
-class="btn btn-info">
+class="btn-alterar">
 Atualizar
+
     </a>
-    <a class="deletar" href="{% url 'deleta_funcionario' pk=f.id %}"
-class="btn btn-outline-danger">
+  </td>
+    <td>
+    <a  href="{% url 'deleta_funcionario' pk=f.id %}"
+class="btn-deletar">
 Excluir
+
     </a>
   </td>
   </tr>
@@ -74,9 +89,8 @@ Excluir
 <h3>Nenhum Funcionário cadastrado ainda.</h3>
 </div>
 {% endif %}
-<hr />
 <div class="text-right">
-<a class="btn btn-primary" href="{% url 'cadastrar_funcionario' %}"> Cadastrar Funcionário </a>
+<a class="btn-cadastrar" href="{% url 'cadastrar_funcionario' %}"> Cadastrar Funcionário <i class="fa-solid fa-person-circle-plus"></i></a>
 </div>
 </div>
 </div>
@@ -84,16 +98,38 @@ Excluir
 </div>
 </div>
 <script>
-  deletar = document.querySelector('.deletar')
+  deletar = document.querySelectorAll('.btn-deletar')
+  deletar.forEach(function(botao){
 
-  deletar.addEventListener('click',()=>{
-    event.preventDefault(); 
-    
-    const confirmacao = confirm('Deseja deletar?');
+    botao.addEventListener('click',()=>{
+      const confirmacao = confirm('Deseja deletar?');
 
-    if (confirmacao) {
-   window.location.href = deletar.href; 
-    } 
+      if (confirmacao) {
+     window.location.href = deletar.href; 
+      } 
+    })
   })
+
+  window.onload = function() {
+  var linhas = Array.from(document.querySelectorAll('.linha'));
+  var ids = Array.from(document.querySelectorAll('.id'));
+  var body = document.getElementById('body');
+  var cont = 0
+    ids.forEach(function(id) {
+      console.log(id.innerText);
+
+      if(id.innerText %2  !=0){
+        console.log('aaa')
+ 
+        linhas[cont].style.backgroundColor = 'rgb(86, 183, 201)'
+      }
+
+      cont +=1
+    });
+  ;
+}; 
+   
+  
+
 </script>
 {% endblock %}

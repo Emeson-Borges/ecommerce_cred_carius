@@ -1281,5 +1281,18 @@ botao_alterar.addEventListener('click',()=>{
     }
     
   })
+  campos = document.querySelectorAll('.form-error')
+
+  campos.forEach(function(campo) {
+    campo.addEventListener('input', function() {
+      if (campo.value != ""){
+        campo.style.backgroundColor = "#DCDCDC"
+      }else{
+        campo.style.backgroundColor = "rgb(252, 143, 179)"
+      }
+     
+    });
+  
+  });
 </script>
 {% endblock %}

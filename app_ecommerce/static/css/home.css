@@ -30,3 +30,30 @@ a:hover{
     transition: 0.3s;
 }
 
+
+.warning{
+	width: 95%;
+	background: rgb(255, 255, 178);
+	text-align: center;
+	padding: 10px;
+	list-style: none;
+	font-family: 'Roboto';
+	border-radius: 15px;
+}
+
+.sucess{
+  width: 95%;
+	background: rgb(120, 176, 250);
+	text-align: center;
+	padding: 10px;
+	list-style: none;
+	font-family: 'Roboto';
+	border-radius: 15px;
+}
+/* Titulo para todas as paginas*/
+.title{
+  background-color:rgb(169, 226, 236) ;
+	width: 95%;
+	border: 5px solid white;
+	border-radius: 15px;
+}

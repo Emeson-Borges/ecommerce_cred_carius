@@ -1,6 +1,6 @@
 
 .page{
-    width: 500px;
+    width: 95%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -55,6 +55,10 @@
   border-radius: 2px;
 }
 
+.form select{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
 .submit_btn {
     float: left;
@@ -88,6 +92,14 @@
 input.form-error{
     background-color: rgb(252, 143, 179);
 }
+
+.container-form{
+    display: flex;
+    flex-direction: row;
+}
+.coluna{
+    margin-right: 100px;
+}
 .radio-btn {
     -webkit-appearance: none;
     /* Remove estilo padrão do Chrome */
@@ -103,6 +115,7 @@ input.form-error{
     /* Tamanho do select, maior que o tamanho da div "div-select" */
     height: 30px;
     /* Altura do select, importante para que tenha a mesma altura em todo os navegadores */
-    border: 1px solid #ddd;
-
+  
+    border: 1px solid white
 }
+

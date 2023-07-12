@@ -1,5 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100;1,300&display=swap');
+
 .table{
 	border: 1px solid black; 
-
+    color: black;
+	background-color: rgb(86, 183, 201);
+	border-collapse: collapse;
+	width: 100%;
+    margin: auto;
+	margin-bottom: 40px;
+	border-radius: 15px;
+	
 }
 
+th{
+	background-color: white;
+}
+tr{
+	border: 1px solid black;
+}
+
+td{
+	border: 1px solid black;
+	border-right: none;
+	border-left: none;
+    font-family: 'Roboto';
+	padding: 5px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.btn-alterar{
+	padding: 5px;
+	display: inline;
+
+	background-color:  rgb(58, 69, 134);
+	color: white;
+	text-decoration: none;
+}
+
+.btn-deletar{
+	padding: 5px;
+	background-color:  rgb(238, 54, 79);
+	color: white;
+	text-decoration: none;
+}
+
+.btn-cadastrar{
+	padding:15px;
+	border-radius: 15px;
+	background-color:  rgb(169, 226, 236);
+	color: black;
+	text-decoration: none;
+	margin-left: 30px;
+	
+}
+
+.btn-cadastrar:hover{
+	color: gray;
+}
+
+.lista-funcionarios{
+	
+	
+}

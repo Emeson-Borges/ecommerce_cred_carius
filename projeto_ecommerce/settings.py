@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'app_funcionarios',
     'app_vendas',
     'corsheaders',
+    'fontawesomefree'
     #'produtos.apps.AppProdutosConfig',
     #'funcionarios.apps.AppFuncionariosConfig',
    

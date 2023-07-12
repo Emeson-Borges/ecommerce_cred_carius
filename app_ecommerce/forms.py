@@ -78,7 +78,8 @@ class FuncionarioForm(forms.Form):
                                                                                                            "invalid":"Data de nascimento inválida"})
        
        numero_casa      = forms.IntegerField(label="Numero da Casa", widget = forms.TextInput(attrs = {'id':'numero_casa',
-                                                                                                       'class':'form-input',   
+                                                                                                       'class':'form-input',
+                                                                                                       'type' : 'number',  
                                                                                                        'placeholder':'Número da Casa do Funcionário'
                                                                                                       }),error_messages={"required":"Numero da casa não pode ser vazio",
                                                                                                            "invalid":"Numero da casa inválido"}) 
