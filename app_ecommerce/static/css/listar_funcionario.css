@@ -3,7 +3,7 @@
 .table{
 	border: 1px solid black; 
     color: black;
-	background-color: rgb(86, 183, 201);
+	background-color: rgb(133, 202, 214);
 	border-collapse: collapse;
 	width: 100%;
     margin: auto;
@@ -59,7 +59,54 @@ td{
 	color: gray;
 }
 
-.lista-funcionarios{
+.filter-search{
+	margin-left: 25px;
+	margin-bottom: 20px;
+	border: 5px solid white;
+	padding: 5px;
+	width: 60%;
+	background-color: rgb(133, 202, 214);
 	
+}
+
+.filter-search select{
+	margin-right: 20px;
+}
+
+.filter-select{
+	display: inline;
+}
+
+
+.search-radio{
+	margin-left: 0px!important;
+	padding: 0;
+	width: 25px!important;
+}
+
+
+
+.btn-search{
+	margin-right: 0px;
+}
+
+.input-search{
+	width: 50%!important;
+}
+
+.radio-container{
+	display: inline;
+	margin-right: 20px;
+	position:relative;
+    right: 80px;
+}
+
+.search-area{
+	width:30%;
+	margin-right: 20px;
+}
+.form-search{
+	display: flex;
+	flex-direction: row;
 	
 }

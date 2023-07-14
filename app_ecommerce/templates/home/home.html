@@ -20,11 +20,11 @@
 <body id="body">
 
 <nav>
-	<a href="{% url 'home' %}">Início</a>
-  <a href="{% url 'cadastrar_produto' %}">Produtos</a>
-  <a href="{% url 'cadastrar_vendas' %}">Vendas</a>
-  <a href="{% url 'listar_funcionarios' %}">Funcionários</a>
-  <a href="{% url 'relatorios' %}">Relatórios</a>
+	<a href="{% url 'home' %}">Início <i class="fa-solid fa-house"></i></a>
+  <a href="{% url 'cadastrar_produto' %}">Produtos <i class="fa-sharp fa-solid fa-box"></i></a>
+  <a href="{% url 'cadastrar_vendas' %}">Vendas <i class="fa-solid fa-money-bill"></i></a>
+  <a href="{% url 'listar_funcionarios' %}">Funcionários <i class="fa-solid fa-person-dolly"></i></a>
+  <a href="{% url 'relatorios' %}">Relatórios <i class="fa-solid fa-file-chart-column"></i></a>
 	<div class="animation start-home"></div>
 </nav>
 {%block content%}

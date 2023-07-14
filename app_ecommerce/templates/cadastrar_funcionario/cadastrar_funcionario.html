@@ -270,7 +270,7 @@ Cadastro de Funcionários
               <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
               {%endif%}
             </div>
-            {%if form.errors%}
+            {%if form.errors or mensagem%}
             <input  type="hidden" id="cidade" value="{{cidade}}">
             <input  type="hidden" id="estado" value="{{estado}}">
             {%endif%}

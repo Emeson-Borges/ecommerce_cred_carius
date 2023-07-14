@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import AdminForm,FuncionarioForm
+from django.db.models import Q
 
 #Importar de onde vem os Models
 from app_funcionarios.models import Funcionarios
@@ -53,10 +54,48 @@ def lista_produtos(request):
     produtos = Produtos.objects.all()
     return render(request, 'listar_produtos/listar_produtos.html', {'produtos': produtos})
 
-def listar_funcionarios(request):
+def listar_funcionarios(request): 
     funcionarios = Funcionarios.objects.all()
     return render(request, 'listar_funcionarios/listar_funcionario.html', {'funcionarios': funcionarios})
 
+
+def filtra_funcionarios(request):
+   
+   cidade = request.GET.get('cidade')
+   sexo   = request.GET.get('sexo')
+   print(sexo,'\n')
+   setor  = request.GET.get('setor')
+   print(setor,'\n')
+   if request.method == 'GET':
+      funcionarios = Funcionarios.objects
+
+      if cidade != None:
+         print('Cidade foi selecionada','\n')
+         funcionarios = funcionarios.filter(cidade = cidade)
+      if sexo  != None:
+         funcionarios = funcionarios.filter(sexo = sexo)
+         print('Sexo foi selecionado','\n')
+      if setor != None:
+         print('Setor foi selecionado','\n')
+         funcionarios = funcionarios.filter(setor = setor)
+
+      if not funcionarios.exists():
+         funcionarios = Funcionarios.objects.all()
+         messages.error(request,'Nenhum funcionário encontrado!')
+         return render(request,'listar_funcionarios/listar_funcionario.html',{'funcionarios':funcionarios})
+      
+      print(funcionarios)
+      return render(request,'listar_funcionarios/listar_funcionario.html',{'funcionarios':funcionarios})
+def pesquisar_funcionarios(request):
+    if request.method == 'GET':
+       pesquisa     = request.GET.get('pesquisa')
+       print(pesquisa,'\n')
+       funcionarios = Funcionarios.objects.filter(Q(nome__contains = pesquisa) | Q(email__contains= pesquisa)| Q(cpf__contains = pesquisa)| 
+                                                  Q(rg__contains = pesquisa)|Q(rua__contains=pesquisa)|Q(bairro__contains=pesquisa)|
+                                                  Q(numero_casa__contains=pesquisa))
+       
+       print(funcionarios,'\n')
+       return render(request, 'listar_funcionarios/listar_funcionario.html', {'funcionarios': funcionarios})
 #Classe do Modelo do Site
 class ModeloView(TemplateView):
     template_name = "modelo_site/modelo_site.html"
@@ -98,10 +137,13 @@ def create_admin(request):
 
 # Salvar na tabela Funcionários
 def cad_funcionarios(request):
+  
   if request.method == 'POST':
-    form = FuncionarioForm(request.POST)
-     
-    if form.is_valid():
+    form   = FuncionarioForm(request.POST)
+    
+    if form.is_valid(): 
+      estado = form.cleaned_data.get('estado')
+      cidade = form.cleaned_data.get('cidade') 
       form.fields['nome'].widget.attrs['class']   = 'form_input'
       form.fields['email'].widget.attrs['class']  = 'form_input'
       form.fields['cpf'].widget.attrs['class']    = 'form_input'
@@ -117,21 +159,31 @@ def cad_funcionarios(request):
       form.fields['setor'].widget.attrs['class'] = 'form-input'
       form.fields['observacao'].widget.attrs['class'] = 'form_input'
       form.fields['estado'].widget.attrs['class'] = 'form_select_option'
+
+  
       #Checa se já há o mesmo cpf no banco
       if Funcionarios.objects.filter(cpf = form.cleaned_data['cpf']).exists():
+         
+      
          form.fields['cpf'].widget.attrs['class']    = 'form-error'
          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse CPF',
-                                                                                     'form':form})
+                                                                                     'form':form,
+                                                                                     'cidade':cidade,
+                                                                                     'estado':estado})
       #Checa se já há o mesmo rg no banco
       elif Funcionarios.objects.filter(rg = form.cleaned_data['rg']).exists():
          form.fields['rg'].widget.attrs['class']    = 'form-error'
          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse RG',
-                                                                                   'form':form})
+                                                                                   'form':form,
+                                                                                   'cidade':cidade,
+                                                                                    'estado':estado})
       #Checa se já há o mesmo email no banco
       elif Funcionarios.objects.filter(email = form.cleaned_data['email']).exists():
          form.fields['email'].widget.attrs['class']    = 'form-error'
          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'mensagem':'Já existe um funcionário com esse Email',
-                                                                                   'form':form})
+                                                                                   'form':form,
+                                                                                   'cidade':cidade,
+                                                                                    'estado':estado})
       else:
         nome        = request.POST['nome']
         email       = request.POST['email']
@@ -208,8 +260,7 @@ def cad_funcionarios(request):
 
        if form.cleaned_data.get('estado') != '' and form.cleaned_data.get('cidade') != '' :  
           
-          estado = form.cleaned_data.get('estado')
-          cidade = form.cleaned_data.get('cidade')
+          
           return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form,
                                                                                     'cidade':cidade,
                                                                                     'estado':estado})

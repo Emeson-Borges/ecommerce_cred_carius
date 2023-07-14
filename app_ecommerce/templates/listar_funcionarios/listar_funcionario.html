@@ -15,10 +15,8 @@ Listar funcionário
   {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-          {% if message.tags == 'success' %}
-            <li class="sucess">Funcionário Alterado com Sucesso!</li>
-          {% elif message.tags == 'warning' %}
-            <li class="warning">Funcionário Deletado com Sucesso!</li>
+          {% if message %}
+          <li class="{{message.tags}}">{{message}}</li>
           {% endif %}
         {% endfor %}
     </ul>
@@ -27,6 +25,95 @@ Listar funcionário
 <h1 class="title">LISTA DE FUNCIONÁRIOS</h1>
 {% if funcionarios|length > 0 %}
 </center>
+<div class="container-search">
+
+  <form method="GET"  action="{% url 'pesquisar_funcionarios' %}">
+    {% csrf_token %}
+    <div class="form-search">
+      <div class="search-area">
+        <input type="text" class="input-search" name="pesquisa" placeholder="Digite aqui a pesquisa"> 
+        <button type="submit" class="btn-search" value="Enviar">Pesquisar</button>
+      </div>
+      <div class="search-type">
+        <div class="radio-container">
+          <label for="dt_nasc_func">Data de Nascimento</label>
+          <input id="dt_nasc_func" value="Data de Nascimento" type="radio" class="search-radio" name="tipo_pesquisa">
+        </div>
+        <div class="radio-container">
+          <label for="cpf">CPF</label>
+          <input type="radio" value="CPF" class="search-radio" id="cpf" name="tipo_pesquisa">
+        </div>
+        <div class="radio-container">
+          <label for="rg">RG</label>
+          <input type="radio" class="search-radio" value="RG" id="rg" name="tipo_pesquisa">
+        </div>
+            
+      </div>
+    </div>
+  </form>
+
+<div class="filter-search">
+  <form method="GET" action="{% url 'filtra_funcionarios' %}">
+  {% csrf_token %}  
+  <label>Filtros</label>
+  <div class="filter-select">
+  <select placeholder = "Estado" name="estado">
+    <option selected disabled value="">Estado</option> 
+          <option value="acre">Acre</option>
+          <option value="alagoas">Alagoas</option>
+          <option value="amapa">Amapá</option>
+          <option value="amazonas">Amazonas</option>
+          <option value="bahia">Bahia</option>
+          <option value="ceara">Ceará</option>
+          <option value="distrito-federal">Distrito Federal</option>
+          <option value="espirito-santo">Espírito Santo</option>
+          <option value="goias">Goiás</option>
+          <option value="maranhao">Maranhão</option>
+          <option value="mato-grosso">Mato Grosso</option>
+          <option value="mato-grosso-do-sul">Mato Grosso do Sul</option>
+          <option value="minas-gerais">Minas Gerais</option>
+          <option value="para">Pará</option>
+          <option value="paraiba">Paraíba</option>
+          <option value="parana">Paraná</option>
+          <option value="pernambuco">Pernambuco</option>
+          <option value="piaui">Piauí</option>
+          <option value="rio-de-janeiro">Rio de Janeiro</option>
+          <option value="rio-grande-do-norte">Rio Grande do Norte</option>
+          <option value="rio-grande-do-sul">Rio Grande do Sul</option>
+          <option value="rondonia">Rondônia</option>
+          <option value="roraima">Roraima</option>
+          <option value="santa-catarina">Santa Catarina</option>
+          <option value="sao-paulo">São Paulo</option>
+          <option value="sergipe">Sergipe</option>
+          <option value="tocantins">Tocantins</option>
+  </select>
+  <div class="filter-select">
+  <select name="cidade" class="dropdown">
+    <option selected disabled class="form_select_option">Selecione</option> 
+  </select>
+</div>
+</div>
+<div class="filter-select">
+  <select name="sexo" class="filter-sex">
+    <option selected disabled >Sexo</option> 
+    <option value="Masculino">Masculino</option>
+    <option value="Feminino">Feminino</option>
+  </select>
+</div>
+<div class="filter-select">
+  <select name="setor"class="filter-setor">
+    <option selected disabled value="">Setor</option> 
+    <option>Vendas</option>
+    <option>Entrega</option>
+    <option>Financeiro</option>
+    <option>Cobrador</option>
+  </select>
+</div>
+ <p></p>
+  <button class="filter-btn" type="submit">Filtrar</button> 
+</form>
+</div>
+</div>
 <table class="table">
 <thead class="thead-dark">
   <tr>
@@ -36,6 +123,7 @@ Listar funcionário
     <th>RG</th>
     <th>Estado Civil</th>
     <th>Sexo</th>
+    <th>Setor</th>
     <th>Email</th>
     <th>Contato</th>
     <th>Estado</th>
@@ -57,6 +145,7 @@ Listar funcionário
     <td>{{ f.rg}}</td>
     <td>{{ f.estadocivil }}</td>
     <td>{{ f.sexo }}</td>
+    <td>{{f.setor}} </td>
     <td>{{ f.email}}</td>
     <td>{{ f.contato}}</td>
     <td>{{ f.estado }}
@@ -116,12 +205,10 @@ Excluir
   var body = document.getElementById('body');
   var cont = 0
     ids.forEach(function(id) {
-      console.log(id.innerText);
 
       if(id.innerText %2  !=0){
-        console.log('aaa')
- 
-        linhas[cont].style.backgroundColor = 'rgb(86, 183, 201)'
+        console.log(`${id.innerText} é impar`)
+        linhas[cont].style.backgroundColor = 'rgb(86, 183, 201'
       }
 
       cont +=1
@@ -130,6 +217,72 @@ Excluir
 }; 
    
   
+
+</script>
+
+<script>
+  
+  const cidadesPorEstado = {
+      acre: ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
+      alagoas: ["Maceió", "Arapiraca", "Palmeira dos Índios"],
+      amapa: ["Macapá", "Santana", "Laranjal do Jari"],
+      amazonas: ["Manaus", "Parintins", "Itacoatiara"],
+      bahia: ["Salvador", "Feira de Santana", "Vitória da Conquista"],
+      ceara: ["Fortaleza", "Juazeiro do Norte", "Caucaia"],
+      "distrito-federal": ["Brasília"],
+      "espirito-santo": ["Vitória", "Vila Velha", "Cariacica"],
+      goias: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
+      maranhao: ["São Luís", "Imperatriz", "Timon"],
+      "mato-grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
+      "mato-grosso-do-sul": ["Campo Grande", "Dourados", "Três Lagoas"],
+      "minas-gerais": ["Belo Horizonte", "Uberlândia", "Contagem"],
+      para: ["Belém", "Ananindeua", "Santarém"],
+      paraiba: ["João Pessoa", "Campina Grande", "Santa Rita"],
+      parana: ["Curitiba", "Londrina", "Maringá"],
+      pernambuco: ["Recife", "Jaboatão dos Guararapes", "Olinda"],
+      piaui: ["Teresina", "Parnaíba", "Picos"],
+      "rio-de-janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
+      "rio-grande-do-norte": ["Natal", "Mossoró", "Parnamirim"],
+      "rio-grande-do-sul": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
+      rondonia: ["Porto Velho", "Ji-Paraná", "Ariquemes"],
+      roraima: ["Boa Vista", "Rorainópolis", "Caracaraí"],
+      "santa-catarina": ["Florianópolis", "Joinville", "Blumenau"],
+      "sao-paulo": ["São Paulo", "Guarulhos", "Campinas"],
+      sergipe: ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
+      tocantins: ["Palmas", "Araguaína", "Gurupi"]
+    };
+    
+
+  const selectEstado         = document.querySelector('select[name="estado"]');
+  const selectCidade         = document.querySelector('select[name="cidade"]');
+  const tipo_pesquisa        = document.querySelectorAll('select[name="tipo_pesquisa"]')
+  const selecionado          = document.querySelector('input[name="tipo_pesquisa"]:checked')
+  
+
+  tipo_pesquisa.forEach((option)=>{
+    console.log("aaaaaa")
+  })
+
+  
+  selectEstado.addEventListener('change', function() {
+    const estadoSelecionado = this.value;
+    
+    // Limpa as opções do dropdown de cidades
+    selectCidade.innerHTML = '<option selected disabled class="form_select_option" value="">Selecione</option>';
+    
+    // Verifica se um estado foi selecionado
+    if (estadoSelecionado) {
+      const cidades = cidadesPorEstado[estadoSelecionado];
+      
+      // Adiciona as opções de cidades no dropdown correspondente
+      cidades.forEach((cidade) => {
+        const optionElement = document.createElement('option');
+        optionElement.textContent = cidade;
+        optionElement.value = cidade;
+        selectCidade.appendChild(optionElement);
+      });
+    }
+  });
 
 </script>
 {% endblock %}

@@ -41,10 +41,20 @@ a:hover{
 	border-radius: 15px;
 }
 
-.sucess{
+.success{
   width: 95%;
 	background: rgb(120, 176, 250);
 	text-align: center;
+	padding: 10px;
+	list-style: none;
+	font-family: 'Roboto';
+	border-radius: 15px;
+}
+
+.error{
+  width: 95%;
+  background: #ff7497;
+  text-align: center;
 	padding: 10px;
 	list-style: none;
 	font-family: 'Roboto';
@@ -57,3 +67,36 @@ a:hover{
 	border: 5px solid white;
 	border-radius: 15px;
 }
+
+.form-search input{
+	font-size: 15px;
+  margin-left: 25px;
+  padding: 5px 5px 5px;
+  background-color: #DCDCDC;
+  border: none;
+  border-radius: 2px;
+  }
+
+.btn-search{
+  padding: 5px;
+  border: none;
+  background-color: #35da6c;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.btn-search:hover{
+  color: gray;
+}
+
+.form-search{
+  position: relative;
+}
+
+.filter-btn{
+  padding: 5px;
+  width: 100px;
+  background-color: #DCDCDC;
+  border: none;
+}
+  

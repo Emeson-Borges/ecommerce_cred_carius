@@ -31,8 +31,8 @@ urlpatterns = [
     path('produtos/', views.lista_produtos, name='lista_produtos'),
     # path('vendas/', views.lista_vendas, name='lista_vendas'),
     path('funcionarios/', views.listar_funcionarios, name='listar_funcionarios'),
-    
-    
+    path('pesquisar_funcionarios',views.pesquisar_funcionarios,name='pesquisar_funcionarios'),
+    path('filtra_funcionarios', views.filtra_funcionarios,name='filtra_funcionarios'),   
     
     #Rotas que salvam dados na tabela
     path('cad_funcionarios/', views.cad_funcionarios, name='cad_funcionarios'),
