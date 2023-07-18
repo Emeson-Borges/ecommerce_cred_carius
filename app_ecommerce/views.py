@@ -89,7 +89,7 @@ def filtra_funcionarios(request):
 def pesquisar_funcionarios(request):
     if request.method == 'GET':
        pesquisa     = request.GET.get('pesquisa')
-       print(pesquisa,'\n')
+       print('Pesquisa:',pesquisa,'\n')
        funcionarios = Funcionarios.objects.filter(Q(nome__contains = pesquisa) | Q(email__contains= pesquisa)| Q(cpf__contains = pesquisa)| 
                                                   Q(rg__contains = pesquisa)|Q(rua__contains=pesquisa)|Q(bairro__contains=pesquisa)|
                                                   Q(numero_casa__contains=pesquisa))
@@ -137,13 +137,13 @@ def create_admin(request):
 
 # Salvar na tabela Funcionários
 def cad_funcionarios(request):
-  
+
   if request.method == 'POST':
     form   = FuncionarioForm(request.POST)
-    
+    estado = request.POST.get('estado')
+    cidade = request.POST.get('cidade') 
     if form.is_valid(): 
-      estado = form.cleaned_data.get('estado')
-      cidade = form.cleaned_data.get('cidade') 
+      
       form.fields['nome'].widget.attrs['class']   = 'form_input'
       form.fields['email'].widget.attrs['class']  = 'form_input'
       form.fields['cpf'].widget.attrs['class']    = 'form_input'
@@ -258,14 +258,15 @@ def cad_funcionarios(request):
        if 'observacao' in form.errors:
           form.fields['observacao'].widget.attrs['class'] = 'form-error'
 
+       
        if form.cleaned_data.get('estado') != '' and form.cleaned_data.get('cidade') != '' :  
-          
-          
           return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form,
                                                                                     'cidade':cidade,
-                                                                                    'estado':estado})
+                                                                        'estado':estado})
        else:
-          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form})
+          return render(request,'cadastrar_funcionario/cadastrar_funcionario.html',{'form':form,
+                                                                                    'cidade':cidade,
+                                                                        'estado':estado})
 
 # Salvar na tabela Produtos
 def cad_produto(request):

@@ -110,3 +110,10 @@ td{
 	flex-direction: row;
 	
 }
+
+.filter-clean{
+	background-color: white;
+	padding: 5px;
+	color: black;
+	text-decoration: none;
+}

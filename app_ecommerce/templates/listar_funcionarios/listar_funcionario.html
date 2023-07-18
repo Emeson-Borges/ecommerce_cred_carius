@@ -32,7 +32,7 @@ Listar funcionário
     <div class="form-search">
       <div class="search-area">
         <input type="text" class="input-search" name="pesquisa" placeholder="Digite aqui a pesquisa"> 
-        <button type="submit" class="btn-search" value="Enviar">Pesquisar</button>
+        <button type="submit" class="btn-search" value="Enviar">Pesquisar <i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
       <div class="search-type">
         <div class="radio-container">
@@ -114,7 +114,8 @@ Listar funcionário
   </select>
 </div>
  <p></p>
-  <button class="filter-btn" type="submit">Filtrar</button> 
+  <button class="filter-btn" type="submit">Filtrar <i class="fa-solid fa-filter"></i></button> 
+  <a class="filter-clean" href={% url 'listar_funcionarios' %}>Limpar Filtros<i class="fa-solid fa-broom"></i></a>
 </form>
 </div>
 </div>
@@ -190,39 +191,6 @@ Excluir
 </div>
 </div>
 </div>
-<script>
-  deletar = document.querySelectorAll('.btn-deletar')
-  deletar.forEach(function(botao){
-
-    botao.addEventListener('click',()=>{
-      const confirmacao = confirm('Deseja deletar?');
-
-      if (confirmacao) {
-     window.location.href = deletar.href; 
-      } 
-    })
-  })
-
-  window.onload = function() {
-  var linhas = Array.from(document.querySelectorAll('.linha'));
-  var ids = Array.from(document.querySelectorAll('.id'));
-  var body = document.getElementById('body');
-  var cont = 0
-    ids.forEach(function(id) {
-
-      if(id.innerText %2  !=0){
-        console.log(`${id.innerText} é impar`)
-        linhas[cont].style.backgroundColor = 'rgb(86, 183, 201'
-      }
-
-      cont +=1
-    });
-  ;
-}; 
-   
-  
-
-</script>
 
 <script>
   
@@ -296,11 +264,12 @@ Excluir
     }
 
     function formataCPFTabela(celula) {
+      console.log("Formatando celula")
       celula.textContent = celula.textContent.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
     }
 
     function formatarRG(event){
-      pesquisa.placeholder = "XX.XXX.XXX-X"
+      
       pesquisa.maxLength   = 12
       var rg = pesquisa.value;
 
@@ -339,13 +308,15 @@ Excluir
   let isCPfFormated          = false
   let isRGFormated           = false
   let isTextSelected         = false
-  const cpfs                 = document.querySelectorAll('cpf')
+  const cpfs                 = document.querySelectorAll('.cpf')
 
   tipo_pesquisa.forEach((option)=>{
     option.addEventListener('change',()=>{
       if(option.value=="CPF"){
+        pesquisa.placeholder = "XXX.XXX.XXX-XX"
         pesquisa.addEventListener('input',formataCPF)
     }else if(option.value=="RG"){
+      pesquisa.placeholder = "XX.XXX.XXX-X"
       pesquisa.addEventListener('input',formatarRG)
     }else if(option.value=="Data de Nascimento"){
       pesquisa.placeholder="DD/MM/AAAA"
@@ -400,11 +371,39 @@ Excluir
       });
     }
   });
-window.onload = ()=>{
-  cpfs.forEach((cpf)=>{
-    console.log()
+window.onload = (event)=>{
+  var linhas = document.querySelectorAll('.linha');
+  var cont = 1
+    linhas.forEach(function(linha) {
+      console.log(linha)
+      if(cont %2  !=0){
+        
+        linha.style.backgroundColor = 'rgb(86, 183, 201)'
+      }
+
+      cont +=1
+    });
+  ;
+   cpfs.forEach((cpf)=>{
     formataCPFTabela(cpf)
-  })
+   })
 }
+
+deletar = document.querySelectorAll('.btn-deletar')
+  deletar.forEach(function(botao){
+
+    botao.addEventListener('click',()=>{
+      const confirmacao = confirm('Deseja deletar?');
+
+      if (confirmacao) {
+     window.location.href = deletar.href; 
+      } 
+    })
+  })
+
+
+   
+  
+
 </script>
 {% endblock %}

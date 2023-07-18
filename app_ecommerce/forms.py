@@ -52,7 +52,7 @@ class FuncionarioForm(forms.Form):
              "required": "Nome não pode ser vazio",
              "invalid" : "Nome inválido"},
              widget = forms.TextInput(attrs={'placeholder':'Nome do Funcionário','class':'form-input'}))
-       cpf              = forms.CharField(label   = "CPF", widget= forms.TextInput(attrs={'id':'cpf','placeholder':'CPF do Funcionário','class':'form-input'}),max_length                 = 11,error_messages={"required":"CPF não pode ser vazio",
+       cpf              = forms.CharField(label   = "CPF", widget= forms.TextInput(attrs={'id':'cpf','placeholder':'CPF do Funcionário','class':'form-input'}),max_length                 = 14,error_messages={"required":"CPF não pode ser vazio",
                                                                                                            "invalid" : "CPF Inválido"})
        rg               = forms.CharField(label   = "RG", max_length                  = 11,error_messages={"required":"RG não pode ser vazio",
                                                                                                            "invalid":"RG Inválido"},

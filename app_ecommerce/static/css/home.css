@@ -96,7 +96,8 @@ a:hover{
 .filter-btn{
   padding: 5px;
   width: 100px;
-  background-color: #DCDCDC;
+  background-color:  rgb(58, 69, 134);
+  color: white;
   border: none;
 }
   

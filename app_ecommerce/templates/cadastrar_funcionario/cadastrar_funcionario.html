@@ -123,23 +123,71 @@ Cadastro de Funcionários
           </select>
           {%endif%}
         </div>
+        <strong>{{form.sexo.value}}</strong>
         <div class="form_grupo">
 
           <span class="legenda">Sexo:</span>
-          {% if form.errors%}
-            {{form.sexo}}
-          {%elif mensagem%}
-            {{form.sexo}}
+          {% comment "Se tiver algum erro de validação ou erro de valor duplicado" %}{% endcomment %}
+          {% if form.errors or mensagem%}
+        
+    {% comment "Se o valor selecionado pelo usuario" %}{% endcomment %}
+            {% if form.sexo.value == 'Masculino' %}
+            <table>
+              {% for choice in form.sexo.field.choices %}
+                <tr>
+                  {% comment "checa se o valor se o valor é masculino para criar o input radio" %}{% endcomment %}
+                  <td>{{ choice.0 }}</td>
+                  <td>
+                  {% if choice.0 == 'Masculino' %}
+                    <input checked type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                  {% else %}
+                    <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                  {% endif %}
+                  </td>
+              </tr>
+            {% endfor %}
+            </table>
+            {% elif form.sexo.value == 'Feminino'%}
+            {% for choice in form.sexo.field.choices %}
+            <table>
+            <tr>
+              <td>{{ choice.0 }}</td>
+              <td>
+              {% if choice.0 == 'Masculino' %}
+                <input  type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+              {% else %}
+                <input checked type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+              {% endif %}
+              </td>
+            </tr>
+            </table>
+          {% endfor %}
+            {% endif %}
+         </table>
           {%else%}
-          <div class="radio-btn">
-              <input type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+          <table>
+          <tr>
+            <td>  
               <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
-          </div>
-
-          <div class="radio-btn">
-              <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+             
+            </td>
+            <td>
+              <input type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+            </td>
+          </tr>
+          <tr>
+            <td>
               <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
-          </div>
+            </td>
+            <td>
+              <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+            </td>
+          </tr>
+
+              
+              
+         
+        </table>
           {%endif%}
 
       </div>
@@ -237,25 +285,51 @@ Cadastro de Funcionários
           {%elif mensagem%}
           {{form.setor}}
           {% else %}
-          <div class="check-btn">
-            <input type="radio" class="form_input" id="html5" name="setor" value="Vendas">
-            <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
-          </div>
+          <table>
 
-          <div class="check-btn">
-            <input type="radio" class="form_input" id="css3" name="setor" value="Entrega">
-            <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
-          </div>
+          <tr class="check-btn">
+            <td>
+              <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
+            </td>
+            <td>
+              <input type="radio" class="form_input" id="html5" name="setor" value="Vendas">
+            </td>
+            
+            
+          </tr>
 
-          <div class="check-btn">
-            <input type="radio" class="form_input" id="jquery" name="setor" value="Financeiro">
-            <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
-          </div>
+          <tr class="check-btn">
+            <td>
+             <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
+            </td>
+            <td>
+              <input type="radio" class="form_input" id="css3" name="setor" value="Entrega">
+            </td>
+           
+          </tr>
 
-          <div class="check-btn">
-            <input type="radio" class="form_input" id="wordpress" name="setor" value="Cobrador">
-            <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
-          </div>
+          <tr class="check-btn">
+            <td>
+              <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
+            </td>
+            <td>
+              <input type="radio" class="form_input" id="jquery" name="setor" value="Financeiro">
+            </td>
+            
+         
+          </tr>
+
+          <tr class="check-btn">
+            <td>
+              <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
+            </td>
+            <td>
+              <input type="radio" class="form_input" id="wordpress" name="setor" value="Cobrador">
+            </td>
+            
+            
+          </tr>
+        </table>
             {% endif %}
           <div class="form_message">
               

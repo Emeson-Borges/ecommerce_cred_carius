@@ -116,6 +116,8 @@ input.form-error{
     height: 30px;
     /* Altura do select, importante para que tenha a mesma altura em todo os navegadores */
   
-    border: 1px solid white
+    border: 1px solid white;
+    
+    clear: both;
 }
 
