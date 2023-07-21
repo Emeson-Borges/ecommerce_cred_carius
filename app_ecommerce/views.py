@@ -156,7 +156,7 @@ def cad_funcionarios(request):
       form.fields['contato'].widget.attrs['class'] = 'form_input'
       form.fields['estadocivil'].widget.attrs['class'] = 'form-input'
       form.fields['sexo'].widget.attrs['class'] = 'form_input'
-      form.fields['setor'].widget.attrs['class'] = 'form-input'
+      form.fields['setor'].widget.attrs['class'] = 'radio-setor'
       form.fields['observacao'].widget.attrs['class'] = 'form_input'
       form.fields['estado'].widget.attrs['class'] = 'form_select_option'
 

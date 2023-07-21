@@ -304,7 +304,6 @@ Excluir
   const tipo_pesquisa        = document.querySelectorAll('input[name="tipo_pesquisa"]')
   const selecionado          = document.querySelector('input[name="tipo_pesquisa"]:checked')
   const pesquisa             = document.querySelector('input[name="pesquisa"]')
-  const form_pesquisa        = document.getElementById('form-pesquisa')
   let isCPfFormated          = false
   let isRGFormated           = false
   let isTextSelected         = false
@@ -341,17 +340,7 @@ Excluir
     
   })
 
-  form_pesquisa.addEventListener('submit',()=>{
-    event.preventDefault()
-    for (const tp of tipo_pesquisa) {
-      if (tp.value=="CPF") {
-       pesquisa.value = removerMascaraCPF(pesquisa.value)
-      }else if(tp.value=="RG"){
-        pesquisa.value = removerPontuacaoRG(pesquisa.value)
-      }
-    }
-    form_pesquisa.submit()
-  })
+ 
   selectEstado.addEventListener('change', function() {
     const estadoSelecionado = this.value;
     
@@ -372,6 +361,19 @@ Excluir
     }
   });
 window.onload = (event)=>{
+  const form_pesquisa = document.getElementById('form-pesquisa')
+  form_pesquisa.addEventListener('submit',()=>{
+    event.preventDefault()
+    for (const tp of tipo_pesquisa) {
+      if (tp.value=="CPF") {
+       pesquisa.value = removerMascaraCPF(pesquisa.value)
+      }else if(tp.value=="RG"){
+        pesquisa.value = removerPontuacaoRG(pesquisa.value)
+      }
+    }
+    form_pesquisa.submit()
+  })
+
   var linhas = document.querySelectorAll('.linha');
   var cont = 1
     linhas.forEach(function(linha) {
@@ -389,14 +391,15 @@ window.onload = (event)=>{
    })
 }
 
-deletar = document.querySelectorAll('.btn-deletar')
+  const deletar = document.querySelectorAll('.btn-deletar')
   deletar.forEach(function(botao){
-
     botao.addEventListener('click',()=>{
+      event.preventDefault()
       const confirmacao = confirm('Deseja deletar?');
-
-      if (confirmacao) {
-     window.location.href = deletar.href; 
+      console.log(confirmacao)
+      if (confirmacao==true) {
+        console.log('deletado')
+        window.location.href = botao.href; 
       } 
     })
   })

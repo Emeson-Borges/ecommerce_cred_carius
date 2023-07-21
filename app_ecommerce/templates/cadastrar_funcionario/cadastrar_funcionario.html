@@ -277,7 +277,7 @@ Cadastro de Funcionários
       </div>
 
 
-      <div class="form_grupo">
+      <div class="form_grupo setor-container">
 
           <span class="legenda">Setor</span>
           {% if  form.errors %}
@@ -285,52 +285,27 @@ Cadastro de Funcionários
           {%elif mensagem%}
           {{form.setor}}
           {% else %}
-          <table>
-
-          <tr class="check-btn">
-            <td>
-              <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
-            </td>
-            <td>
-              <input type="radio" class="form_input" id="html5" name="setor" value="Vendas">
-            </td>
-            
-            
-          </tr>
-
-          <tr class="check-btn">
-            <td>
-             <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
-            </td>
-            <td>
-              <input type="radio" class="form_input" id="css3" name="setor" value="Entrega">
-            </td>
-           
-          </tr>
-
-          <tr class="check-btn">
-            <td>
-              <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
-            </td>
-            <td>
-              <input type="radio" class="form_input" id="jquery" name="setor" value="Financeiro">
-            </td>
-            
          
-          </tr>
 
-          <tr class="check-btn">
-            <td>
+        <div>
+              <label for="html5" class="form_label check_label"> <span class="check_new_btn"></span>Vendas</label>
+              <input type="radio" class="radio-setor" id="html5" name="setor" value="Vendas">
+        </div>
+        <div>
+              <label for="css3" class="form_label check_label"><span class="check_new_btn"></span>Entrega</label>
+              <input type="radio" class="radio-setor" id="css3" name="setor" value="Entrega">
+        </div>
+        <div>   
+              <label for="jquery" class="form_label check_label"><span class="check_new_btn"></span>Financeiro</label>
+              <input type="radio" class="radio-setor" id="jquery" name="setor" value="Financeiro">
+        </div> 
+        <div >
               <label for="wordpress" class="form_label check_label"><span class="check_new_btn"></span>Cobrador</label>
-            </td>
-            <td>
-              <input type="radio" class="form_input" id="wordpress" name="setor" value="Cobrador">
-            </td>
-            
-            
-          </tr>
-        </table>
-            {% endif %}
+              <input type="radio" class="radio-setor" id="wordpress" name="setor" value="Cobrador">
+        </div>   
+          {% endif %}
+          
+      </div>
           <div class="form_message">
               
               <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
@@ -348,7 +323,7 @@ Cadastro de Funcionários
             <input  type="hidden" id="cidade" value="{{cidade}}">
             <input  type="hidden" id="estado" value="{{estado}}">
             {%endif%}
-          </div>
+          
           <div class="submit">
             <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>
           </div>

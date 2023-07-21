@@ -121,3 +121,17 @@ input.form-error{
     clear: both;
 }
 
+
+.setor-container{
+    margin-bottom: 30px;
+}
+
+.radio-setor{
+    position: relative;
+    top: 13px;
+}
+
+.check_label{
+    position: relative;
+    top: 30px;
+}
