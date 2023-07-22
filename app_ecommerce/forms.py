@@ -54,9 +54,9 @@ class FuncionarioForm(forms.Form):
              widget = forms.TextInput(attrs={'placeholder':'Nome do Funcionário','class':'form-input'}))
        cpf              = forms.CharField(label   = "CPF", widget= forms.TextInput(attrs={'id':'cpf','placeholder':'CPF do Funcionário','class':'form-input'}),max_length                 = 14,error_messages={"required":"CPF não pode ser vazio",
                                                                                                            "invalid" : "CPF Inválido"})
-       rg               = forms.CharField(label   = "RG", max_length                  = 11,error_messages={"required":"RG não pode ser vazio",
+       rg               = forms.CharField(label   = "RG", max_length                  = 12,error_messages={"required":"RG não pode ser vazio",
                                                                                                            "invalid":"RG Inválido"},
-                                                                                            widget=forms.TextInput(attrs={'placeholder':'RG do Funcionário'}))               
+                                                                                            widget=forms.TextInput(attrs={'id':'rg','placeholder':'RG do Funcionário'}))               
        cidade           = forms.CharField(label   = "Cidade", widget= forms.TextInput(attrs={'id':'cidade',
                                                                                              'class':'form-input',
                                                                                              'placeholder':'Cidade do Funcionário',
