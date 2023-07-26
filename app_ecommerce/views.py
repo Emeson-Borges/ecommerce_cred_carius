@@ -88,7 +88,7 @@ def filtra_funcionarios(request):
       return render(request,'listar_funcionarios/listar_funcionario.html',{'funcionarios':funcionarios})
 def pesquisar_funcionarios(request):
     if request.method == 'GET':
-       pesquisa     = request.GET.get('pesquisa')
+       pesquisa     = request.GET['pesquisa']
        print('Pesquisa:',pesquisa,'\n')
        funcionarios = Funcionarios.objects.filter(Q(nome__contains = pesquisa) | Q(email__contains= pesquisa)| Q(cpf__contains = pesquisa)| 
                                                   Q(rg__contains = pesquisa)|Q(rua__contains=pesquisa)|Q(bairro__contains=pesquisa)|

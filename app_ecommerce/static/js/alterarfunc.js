@@ -865,7 +865,7 @@ const cidadesPorEstado = {
 function validarRG() {
   const inputRg = document.getElementById("rg").value;
   const rgSemPontuacao = inputRg.replace(/\D/g, '');
-
+  
   if (rgSemPontuacao.length !== 9) {
     alert("RG inválido. Deve conter exatamente 9 dígitos.");
     return;
@@ -873,7 +873,7 @@ function validarRG() {
 
   const numeroRG = rgSemPontuacao.slice(0, 8);
   const digitoConf = rgSemPontuacao.slice(8);
-
+  console.log(numeroRG)
   // Cálculo do dígito de confirmação
   let soma = 0;
   for (let i = 0; i < 8; i++) {
@@ -939,6 +939,10 @@ selectEstado.addEventListener('change', function() {
     });
   }
 });
+
+function removerPontuacaoRG(rg) {
+  return rg.replace(/[^\d]/g, "");
+}
 function formataCPF(input) {
 // Remove todos os caracteres que não sejam dígitos
 var valor = input.value.replace(/\D/g, '');
@@ -1014,11 +1018,12 @@ return String(cpf).replace(/\D/g, '');
 botao_alterar.addEventListener('click',()=>{
   event.preventDefault();
   if(validaCpf(cpf.value)==true){
-    if(validarRG==true){
+    if(validarRG()==true){
       cpf.value = removerMascaraCPF(cpf.value)
       rg.value  = removerPontuacaoRG(rg.value)
       form_alterar.submit()
     }else{
+      console.log(validarRG())
       alert("RG Inválido!")
     }
    

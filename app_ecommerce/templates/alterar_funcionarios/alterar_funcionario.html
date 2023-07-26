@@ -171,29 +171,50 @@
             {% endif %}
          </table>
           {%else%}
+          
+          {% if funcionario.sexo == 'Masculino' %}
           <table>
-          <tr>
-            <td>  
-              <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
-             
-            </td>
-            <td>
-              <input type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
-            </td>
-            <td>
-              <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
-            </td>
-          </tr>
+            <tr>
+              <td>  
+                <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
+               
+              </td>
+              <td>
+                <input type="radio" checked class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
+              </td>
+              <td>
+                <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+              </td>
+            </tr>
+          </table>
+          {% elif funcionario.sexo == 'Feminino'%}
+          <table>
+            <tr>
+              <td>  
+                <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
+               
+              </td>
+              <td>
+                <input type="radio"  class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
+              </td>
+              <td>
+                <input type="radio" checked class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+              </td>
+            </tr>
+          </table>
 
-              
-              
-         
-        </table>
+          {% endif %}
+          
           {%endif%}
       </div>
     </div>

@@ -33,11 +33,13 @@ Listar funcionário
       <div class="search-area">
         <input type="text" class="input-search" name="pesquisa" placeholder="Digite aqui a pesquisa"> 
         <button type="submit" class="btn-search" value="Enviar">Pesquisar <i class="fa-solid fa-magnifying-glass"></i></button>
-      </div>
+      </div>  
+    
+ 
       <div class="search-type">
         <div class="radio-container">
           <label for="texto">Texto</label>
-          <input id="texto" value="Texto" type="radio" class="search-radio" name="tipo_pesquisa">
+          <input checked id="texto" value="Texto" type="radio" class="search-radio" name="tipo_pesquisa">
         </div>
         <div class="radio-container">
           <label for="dt_nasc_func">Data de Nascimento</label>
@@ -51,10 +53,10 @@ Listar funcionário
           <label for="rg">RG</label>
           <input type="radio" class="search-radio" value="RG" id="rg" name="tipo_pesquisa">
         </div>
-            
+      </div>     
       </div>
-    </div>
-  </form>
+    </form>
+
 
 <div class="filter-search">
   <form method="GET" action="{% url 'filtra_funcionarios' %}">

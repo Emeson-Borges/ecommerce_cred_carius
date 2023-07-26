@@ -28,9 +28,11 @@ const cidadesPorEstado = {
     tocantins: ["Palmas", "Araguaína", "Gurupi"]
   };
   
-  function formatarNascimento(input) {
+  function formatarNascimento() {
+    pesquisa.placeholder = 'DD/MM/AAAA'
+    pesquisa.maxLength   = 10
     // Remove todos os caracteres que não sejam dígitos
-    var valor = input.value.replace(/\D/g, '');
+    var valor = pesquisa.value.replace(/\D/g, '');
   
     // Verifica se o valor é uma data válida
     if (valor.length > 2) {
@@ -44,10 +46,13 @@ const cidadesPorEstado = {
     }
   
     // Atualiza o valor do campo de entrada
-    if (input.value != null){
-       input.value = valor;
+    if (pesquisa.value != null){
+       pesquisa.value = valor;
     }
-   
+
+    isRGFormated   = false
+    isDateFormated = true
+    isCPfFormated  = false
   }
 
   function formatarTabelaRG(rg) {
@@ -75,8 +80,9 @@ const cidadesPorEstado = {
     // Atualiza o valor do campo de entrada
     pesquisa.value = valor;
 
-    isRGFormated  = false
-    isCPfFormated = true
+    isRGFormated   = false
+    isDateFormated = false
+    isCPfFormated  = true
   }
 
   function formataCPFTabela(celula) {
@@ -104,6 +110,7 @@ const cidadesPorEstado = {
   pesquisa.value = rg;
   isRGFormated   = true
   isCPfFormated  = false 
+  isDateFormated = false
 }
 
   function removerMascaraCPF(cpf) {
@@ -122,6 +129,7 @@ const selecionado          = document.querySelector('input[name="tipo_pesquisa"]
 const pesquisa             = document.querySelector('input[name="pesquisa"]')
 let isCPfFormated          = false
 let isRGFormated           = false
+let isDateFormated         = false
 let isTextSelected         = false
 const cpfs                 = document.querySelectorAll('.cpf')
 const rgs                  = document.querySelectorAll('.rg')
@@ -136,13 +144,9 @@ tipo_pesquisa.forEach((option)=>{
     pesquisa.addEventListener('input',formatarRG)
   }else if(option.value=="Data de Nascimento"){
     pesquisa.placeholder="DD/MM/AAAA"
-    pesquisa.addEventListener('input',()=>{
-      pesquisa.maxLength = 10
-      formatarNascimento(pesquisa)
-    })
+    pesquisa.addEventListener('input',formatarNascimento)
   }else if(option.value=="Texto"){
     pesquisa.placeholder="Digite sua pesquisa"
-    
     console.log("Está sendo removido")
     if(isCPfFormated){
       pesquisa.removeEventListener('input',formataCPF)
@@ -150,7 +154,11 @@ tipo_pesquisa.forEach((option)=>{
     if(isRGFormated){
       pesquisa.removeEventListener('input',formatarRG)
     }
-    pesquisa.removeAttribute("maxlength")
+    if(isDateFormated){
+      console.log('Removendo mascara de data de nascimento')
+      pesquisa.removeEventListener('input',formatarNascimento)
+    }
+  
   }
 
 })
@@ -180,15 +188,18 @@ selectEstado.addEventListener('change', function() {
 window.onload = (event)=>{
 const form_pesquisa = document.getElementById('form-pesquisa')
 form_pesquisa.addEventListener('submit',()=>{
-  event.preventDefault()
+ 
   for (const tp of tipo_pesquisa) {
-    if (tp.value=="CPF") {
-     pesquisa.value = removerMascaraCPF(pesquisa.value)
-    }else if(tp.value=="RG"){
-      pesquisa.value = removerPontuacaoRG(pesquisa.value)
+    console.log(tp.value)
+    if(tp.checked){
+      if (tp.value=="CPF") {
+        pesquisa.value = removerMascaraCPF(pesquisa.value)
+       }else if(tp.value=="RG"){
+         pesquisa.value = removerPontuacaoRG(pesquisa.value)
+       }
     }
+    
   }
-  form_pesquisa.submit()
 })
 
 var linhas = document.querySelectorAll('.linha');
