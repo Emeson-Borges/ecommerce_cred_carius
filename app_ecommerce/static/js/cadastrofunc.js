@@ -1,31 +1,29 @@
 const cidadesPorEstado = {
-    acre: ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
-    alagoas: ["Maceió", "Arapiraca", "Palmeira dos Índios"],
-    amapa: ["Macapá", "Santana", "Laranjal do Jari"],
-    amazonas: ["Manaus", "Parintins", "Itacoatiara"],
-    bahia: ["Salvador", "Feira de Santana", "Vitória da Conquista"],
-    ceara: ["Fortaleza", "Juazeiro do Norte", "Caucaia"],
-    "distrito-federal": ["Brasília"],
-    "espirito-santo": ["Vitória", "Vila Velha", "Cariacica"],
-    goias: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
-    maranhao: ["São Luís", "Imperatriz", "Timon"],
-    "mato-grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
-    "mato-grosso-do-sul": ["Campo Grande", "Dourados", "Três Lagoas"],
-    "minas-gerais": ["Belo Horizonte", "Uberlândia", "Contagem"],
-    para: ["Belém", "Ananindeua", "Santarém"],
-    paraiba: ["João Pessoa", "Campina Grande", "Santa Rita"],
-    parana: ["Curitiba", "Londrina", "Maringá"],
-    pernambuco: ["Recife", "Jaboatão dos Guararapes", "Olinda"],
-    piaui: ["Teresina", "Parnaíba", "Picos"],
-    "rio-de-janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
-    "rio-grande-do-norte": ["Natal", "Mossoró", "Parnamirim"],
-    "rio-grande-do-sul": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
-    rondonia: ["Porto Velho", "Ji-Paraná", "Ariquemes"],
-    roraima: ["Boa Vista", "Rorainópolis", "Caracaraí"],
-    "santa-catarina": ["Florianópolis", "Joinville", "Blumenau"],
-    "sao-paulo": ["São Paulo", "Guarulhos", "Campinas"],
-    sergipe: ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
-    tocantins: ["Palmas", "Araguaína", "Gurupi"]
+    'AC': ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira"],
+    'AL': ["Maceió", "Arapiraca", "Palmeira dos Índios"],
+    'AP': ["Macapá", "Santana", "Laranjal do Jari"],
+    'AM': ["Manaus", "Parintins", "Itacoatiara"],
+    'BA': ["Salvador", "Feira de Santana", "Vitória da Conquista"],
+    'CE': ["Fortaleza", "Juazeiro do Norte", "Caucaia"],
+    "DF": ["Brasília"],
+    "ES": ["Vitória", "Vila Velha", "Cariacica"],
+    'GO': ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
+    'MA': ["São Luís", "Imperatriz", "Timon"],
+    "MT": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
+    "MS": ["Campo Grande", "Dourados", "Três Lagoas"],
+    "MG": ["Belo Horizonte", "Uberlândia", "Contagem"],
+    'PA': ["Belém", "Ananindeua", "Santarém"],
+    'PB': ["João Pessoa", "Campina Grande", "Santa Rita"],
+    'PR': ["Curitiba", "Londrina", "Maringá"],
+    'PE': ["Recife", "Jaboatão dos Guararapes", "Olinda"],
+    'PI': ["Teresina", "Parnaíba", "Picos"],
+    "RJ": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
+    "RN": ["Natal", "Mossoró", "Parnamirim"],
+    "RS": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
+    'SC': ["Florianópolis", "Joinville", "Blumenau"],
+    'SP': ["São Paulo", "Guarulhos", "Campinas"],
+    'SE': ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
+    'TO': ["Palmas", "Araguaína", "Gurupi"]
   };
   
 
@@ -77,32 +75,7 @@ function removerPontuacaoRG(rg) {
   return rg.replace(/[^\d]/g, "");
 }
 
-function validarRG() {
-  const inputRg = document.getElementById("rg").value;
-  const rgSemPontuacao = inputRg.replace(/\D/g, '');
 
-  if (rgSemPontuacao.length !== 9) {
-    alert("RG inválido. Deve conter exatamente 9 dígitos.");
-    return;
-  }
-
-  const numeroRG = rgSemPontuacao.slice(0, 8);
-  const digitoConf = rgSemPontuacao.slice(8);
-
-  // Cálculo do dígito de confirmação
-  let soma = 0;
-  for (let i = 0; i < 8; i++) {
-    soma += parseInt(numeroRG[i]) * (8 - i);
-  }
-  const resto = soma % 11;
-  const digitoCalculado = resto < 2 ? 0 : 11 - resto;
-
-  if (digitoCalculado === parseInt(digitoConf)) {
-    return true
-  } else {
-    return false
-  }
-}
 //Função para validar CPF
 function validaCpf(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
@@ -151,13 +124,9 @@ function validaCpf(cpf) {
   botao_cadastrar.addEventListener('click',()=>{
     event.preventDefault();
     if(validaCpf(cpf.value)){
-      if(validarRG == true){
         rg.value  = removerPontuacaoRG(rg.value)
         cpf.value = removerMascaraCPF(cpf.value)
         form_cadastrar.submit(); 
-      }else{
-        alert("RG Inválido")
-      }
     }else{
       alert("CPF Inválido!")
     }
