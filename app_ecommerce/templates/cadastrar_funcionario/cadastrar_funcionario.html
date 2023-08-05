@@ -123,7 +123,6 @@ Cadastro de Funcionários
           </select>
           {%endif%}
         </div>
-        <strong>{{form.sexo.value}}</strong>
         <div class="form_grupo">
 
           <span class="legenda">Sexo:</span>
@@ -131,39 +130,59 @@ Cadastro de Funcionários
           {% if form.errors or mensagem%}
         
     {% comment "Se o valor selecionado pelo usuario" %}{% endcomment %}
-            {% if form.sexo.value == 'Masculino' %}
+            {% if form.sexo.value == 'M' %}
             <table>
               {% for choice in form.sexo.field.choices %}
                 <tr>
                   {% comment "checa se o valor se o valor é masculino para criar o input radio" %}{% endcomment %}
-                  <td>{{ choice.0 }}</td>
+                  <td>{{ choice.1 }}</td>
                   <td>
-                  {% if choice.0 == 'Masculino' %}
-                    <input checked type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                  {% if choice.0 == 'M' %}
+                    <input checked type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
                   {% else %}
-                    <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                    <input type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
                   {% endif %}
                   </td>
               </tr>
             {% endfor %}
             </table>
-            {% elif form.sexo.value == 'Feminino'%}
+            {% elif form.sexo.value == 'F'%}
             {% for choice in form.sexo.field.choices %}
             <table>
             <tr>
-              <td>{{ choice.0 }}</td>
+              <td>{{ choice.1 }}</td>
               <td>
-              {% if choice.0 == 'Masculino' %}
-                <input  type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+              {% if choice.0 == 'M' %}
+                <input  type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
               {% else %}
-                <input checked type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                <input checked type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
               {% endif %}
               </td>
             </tr>
             </table>
           {% endfor %}
+
+          {%else%}
+          <table class="form-error">
+          <tr>
+            <td>  
+              <label for="masculino" class="radio_label form_label"> <span class="radio_new_btn"></span> Masculino</label>
+             
+            </td>
+            <td>
+              <input type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
+            </td>
+            <td>
+              <input type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
+            </td>
+          </tr>
+        </table>
             {% endif %}
-         </table>
           {%else%}
           <table>
           <tr>
@@ -172,7 +191,7 @@ Cadastro de Funcionários
              
             </td>
             <td>
-              <input type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+              <input type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
             </td>
           </tr>
           <tr>
@@ -180,13 +199,9 @@ Cadastro de Funcionários
               <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
             </td>
             <td>
-              <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+              <input type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
             </td>
           </tr>
-
-              
-              
-         
         </table>
           {%endif%}
 
@@ -194,34 +209,38 @@ Cadastro de Funcionários
 
       <div class="form_grupo">
         <label for="estado" class="text">Estado</label>
-        <select name="estado" class="dropdown" required>
-          <option selected disabled class="form_select_option" value="">Selecione</option> 
-          <option value="AC">Acre</option>
-          <option value="AL">Alagoas</option>
-          <option value="AP">Amapá</option>
-          <option value="AM">Amazonas</option>
-          <option value="BA">Bahia</option>
-          <option value="CE">Ceará</option>
-          <option value="DF">Distrito Federal</option>
-          <option value="ES">Espírito Santo</option>
-          <option value="GO">Goiás</option>
-          <option value="MA">Maranhão</option>
-          <option value="MT">Mato Grosso</option>
-          <option value="MS">Mato Grosso do Sul</option>
-          <option value="MG">Minas Gerais</option>
-          <option value="PA">Pará</option>
-          <option value="PB">Paraíba</option>
-          <option value="PR">Paraná</option>
-          <option value="PE">Pernambuco</option>
-          <option value="PI">Piauí</option>
-          <option value="RJ">Rio de Janeiro</option>
-          <option value="RN">Rio Grande do Norte</option>
-          <option value="RS">Rio Grande do Sul</option>
-          <option value="SC">Santa Catarina</option>
-          <option value="SP">São Paulo</option>
-          <option value="SE">Sergipe</option>
-          <option value="TO">Tocantins</option>
-        </select>
+        {% if form.errors or mensagem%}
+          {{form.estado}} 
+        {% else %}
+          <select name="estado" class="dropdown" required>
+            <option selected disabled class="form_select_option" value="">Selecione</option> 
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+          </select>
+        {% endif %}
         <div class="form_grupo">
         <label for="cidade" class="text">Cidade</label>
         <select name="cidade" class="dropdown" required>
@@ -317,10 +336,11 @@ Cadastro de Funcionários
               <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required></textarea>
               {%endif%}
             </div>
-            {%if form.errors or mensagem%}
-            <input  type="hidden" id="cidade" value="{{cidade}}">
-            <input  type="hidden" id="estado" value="{{estado}}">
-            {%endif%}
+           {%if form.errors or mensagem%}
+              {% if cidade != None %}
+                <input  type="hidden" id="cidade" value="{{cidade}}">
+              {% endif %}
+            {%endif%} 
           
           <div class="submit">
             <button type="submit" id="cadastrar" name="Submit" class="submit_btn" >Cadastrar</button>

@@ -27,7 +27,7 @@ estados = [
     ('TO', 'Tocantins'),
 ]
 
-sexo = [("Masculino", "Masculino"),("Feminino","Feminino")]
+sexo = [("M", "Masculino"),("F","Feminino")]
 
 estado_civil = [('Solteiro','Solteiro(a)'),
 ('Casado','Casado(a)'),
@@ -93,9 +93,9 @@ class FuncionarioForm(forms.Form):
                                                                                                            "invalid":"Estado inválido"})
        estadocivil      = forms.ChoiceField(label   = "Estado Civil", widget=forms.Select(attrs={'class':'form-input'}),choices=estado_civil,error_messages={"required":" Estado Civil não pode ser vazio",
                                                                                                            "invalid":"Estado Civil inválido"})
-       observacao       = forms.CharField(label   = "Observação", widget = forms.Textarea(attrs = {"rows":"5",'class':'form-input'}),error_messages={"required":"Observação não pode ser vazio",
+       observacao       = forms.CharField(label   = "Observação", widget = forms.Textarea(attrs = {"rows":"3","cols":"30",'class':'form-input'}),error_messages={"required":"Observação não pode ser vazio",
                                                                                                            "invalid":"Observação inválida"})
-       email            = forms.EmailField(label  ="E-mail",widget=forms.EmailInput(attrs={'class':'form-input'}),error_messages={"required":"E-mail não pode ser vazio",
+       email            = forms.EmailField(label  ="E-mail",widget=forms.EmailInput(attrs={'class':'form-input','placeholder':'E-mail do Funcionário'}),error_messages={"required":"E-mail não pode ser vazio",
                                                                                                            "invalid":"E-mail inválido"})
        setor            = forms.ChoiceField(label   ="Setor", widget=forms.RadioSelect(attrs={'class':'form-input'}),choices = setor,error_messages={"required":"Setor não pode ser vazio",
                                                                                                            "invalid":"Setor inválido"})

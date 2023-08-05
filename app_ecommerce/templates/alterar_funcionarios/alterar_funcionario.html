@@ -27,14 +27,20 @@
  {% endfor %}
 </div>
 {% endif %}
+
+{%if mensagem%}
+<div class="alert alert-danger">
+  <strong>{{mensagem}}</strong>
+</div>
+{%endif%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/cadfuncionario.css' %}">
 
 
-  <center><h1>ALTERAÇÃO DE FUNCIONARIOS</h1></center>
+  <center><h1 class="title" >ALTERAÇÃO DE FUNCIONARIOS</h1></center>
 
   <form class="form" id="form_alterar" action="{% url 'upd_funcionario' %}" method="POST">
     {% csrf_token %} 
-    {%if form.errors%}
+    {%if form.errors or mensagem%}
     <input  name="id" type="hidden" value="{{id}}">
     {%else%}
     <input style="display: none;" name="id" value="{{funcionario.id}}">
@@ -43,7 +49,7 @@
       <div class="coluna">
         <div class="form_grupo">
             <label for="nome" class="form_label">Nome</label>
-            {% if form.errors%}
+            {% if form.errors or mensagem%}
               {{form.nome}}
             {%else%}
                 <input type="text" name="nome" class="form_input" id="nome" placeholder="Digite seu nome" autofocus="true" required value="{{ funcionario.nome }}">
@@ -52,7 +58,7 @@
       
         <div class="form_grupo">
           <label for="CPF">CPF</label>
-          {% if form.errors %}
+          {% if form.errors or mensagem%}
               {{form.cpf}}
           {%else%}
           <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" maxLength="14" required value = "{{funcionario.cpf}}" />
@@ -61,7 +67,7 @@
 
         <div class="form_grupo">
           <label for="RG">RG</label>
-          {% if form.errors %}
+          {% if form.errors or mensagem %}
             {{form.rg}}
           {%else%}
           <input type="text" id="rg" name="rg" placeholder="Digite seu RG" required value = "{{funcionario.rg}}"/>
@@ -70,7 +76,7 @@
    
         <div class="form_grupo">
           <label for="dtnasc">Data Nascimento</label>
-          {% if form.errors %}
+          {% if form.errors or mensagem%}
             {{form.dtnasc_func}}
           {% else %}
           <input type="text" name="dtnasc_func" id="dtnasc_func" placeholder="Digite sua Data de Nascimento" required value="{{funcionario.dtnasc_func}}" />
@@ -79,7 +85,7 @@
 
         <div class="form_grupo">
           <label for="Contato">Contato</label>
-          {% if form.errors %}
+          {% if form.errors or mensagem%}
               {{form.contato}}
           {% else %}
           <input type="text" name="contato" placeholder="Digite o número de celular" required value="{{funcionario.contato}}" />
@@ -88,7 +94,7 @@
 
         <div class="form_grupo">
           <label for="e-mail" class="form_label">Email</label>
-          {% if form.errors %}
+          {% if form.errors or mensagem%}
              {{form.email}}
           {% else %}
           <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" value="{{funcionario.email}}" required >
@@ -97,7 +103,7 @@
 
         <div class="form_grupo">
             <label for="estadocivil" class="text">Estado civil</label>
-            {% if form.errors %}
+            {% if form.errors or mensagem%}
               {{form.estadocivil}}
             {% else %}
             <select name="estadocivil" class="dropdown" required value="{{funcionario.estadocivil}}">
@@ -137,32 +143,32 @@
           {% if form.errors or mensagem%}
         
     {% comment "Se o valor selecionado pelo usuario" %}{% endcomment %}
-            {% if form.sexo.value == 'Masculino' %}
+            {% if form.sexo.value == 'M' %}
             <table>
               {% for choice in form.sexo.field.choices %}
                 <tr>
                   {% comment "checa se o valor se o valor é masculino para criar o input radio" %}{% endcomment %}
-                  <td>{{ choice.0 }}</td>
+                  <td>{{ choice.1 }}</td>
                   <td>
-                  {% if choice.0 == 'Masculino' %}
-                    <input checked type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                  {% if choice.0 == 'M' %}
+                    <input checked type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
                   {% else %}
-                    <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                    <input type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
                   {% endif %}
                   </td>
               </tr>
             {% endfor %}
             </table>
-            {% elif form.sexo.value == 'Feminino'%}
+            {% elif form.sexo.value == 'F'%}
             {% for choice in form.sexo.field.choices %}
             <table>
             <tr>
-              <td>{{ choice.0 }}</td>
+              <td>{{ choice.1 }}</td>
               <td>
               {% if choice.0 == 'Masculino' %}
-                <input  type="radio" class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                <input  type="radio" class="form_input " id="masculino" name="sexo" value="M" required="required">
               {% else %}
-                <input checked type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                <input checked type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
               {% endif %}
               </td>
             </tr>
@@ -172,7 +178,7 @@
          </table>
           {%else%}
           
-          {% if funcionario.sexo == 'Masculino' %}
+          {% if funcionario.sexo == 'M' %}
           <table>
             <tr>
               <td>  
@@ -180,7 +186,7 @@
                
               </td>
               <td>
-                <input type="radio" checked class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                <input type="radio" checked class="form_input " id="masculino" name="sexo" value="M" required="required">
               </td>
             </tr>
             <tr>
@@ -188,11 +194,11 @@
                 <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
               </td>
               <td>
-                <input type="radio" class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                <input type="radio" class="form_input " id="feminino" name="sexo" value="F" required="required">
               </td>
             </tr>
           </table>
-          {% elif funcionario.sexo == 'Feminino'%}
+          {% elif funcionario.sexo == 'F'%}
           <table>
             <tr>
               <td>  
@@ -200,7 +206,7 @@
                
               </td>
               <td>
-                <input type="radio"  class="form_input " id="masculino" name="sexo" value="Masculino" required="required">
+                <input type="radio"  class="form_input " id="masculino" name="sexo" value="M" required="required">
               </td>
             </tr>
             <tr>
@@ -208,7 +214,7 @@
                 <label for="feminino" class="radio_label form_label"> <span class="radio_new_btn"></span> Feminino</label>
               </td>
               <td>
-                <input type="radio" checked class="form_input " id="feminino" name="sexo" value="Feminino" required="required">
+                <input type="radio" checked class="form_input " id="feminino" name="sexo" value="F" required="required">
               </td>
             </tr>
           </table>
@@ -223,33 +229,31 @@
         <label for="estado" class="text">Estado</label>
         <select name="estado" class="dropdown" required>
           <option selected disabled class="form_select_option" value="">Selecione</option> 
-          <option value="acre">Acre</option>
-          <option value="alagoas">Alagoas</option>
-          <option value="amapa">Amapá</option>
-          <option value="amazonas">Amazonas</option>
-          <option value="bahia">Bahia</option>
-          <option value="ceara">Ceará</option>
-          <option value="distrito-federal">Distrito Federal</option>
-          <option value="espirito-santo">Espírito Santo</option>
-          <option value="goias">Goiás</option>
-          <option value="maranhao">Maranhão</option>
-          <option value="mato-grosso">Mato Grosso</option>
-          <option value="mato-grosso-do-sul">Mato Grosso do Sul</option>
-          <option value="minas-gerais">Minas Gerais</option>
-          <option value="para">Pará</option>
-          <option value="paraiba">Paraíba</option>
-          <option value="parana">Paraná</option>
-          <option value="pernambuco">Pernambuco</option>
-          <option value="piaui">Piauí</option>
-          <option value="rio-de-janeiro">Rio de Janeiro</option>
-          <option value="rio-grande-do-norte">Rio Grande do Norte</option>
-          <option value="rio-grande-do-sul">Rio Grande do Sul</option>
-          <option value="rondonia">Rondônia</option>
-          <option value="roraima">Roraima</option>
-          <option value="santa-catarina">Santa Catarina</option>
-          <option value="sao-paulo">São Paulo</option>
-          <option value="sergipe">Sergipe</option>
-          <option value="tocantins">Tocantins</option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
         </select>
       </div>
       
@@ -265,7 +269,7 @@
       
       <div class="form_grupo">
         <label for="Rua">Rua</label>
-        {% if form.errors %}
+        {% if form.errors or mensagem%}
              {{form.rua}}
         {% else %}
         <input type="text" name="rua" placeholder="Digite o nome da sua rua" value="{{funcionario.rua}}" />
@@ -274,7 +278,7 @@
 
       <div class="form_grupo">
         <label for="Bairro">Bairro</label>
-        {% if form.errors %}
+        {% if form.errors or mensagem%}
              {{form.bairro}}
         {% else %}
         <input type="text" name="bairro" placeholder="Digite o nome do seu bairro" value="{{funcionario.bairro}}"/>
@@ -283,7 +287,7 @@
 
       <div class="form_grupo">
         <label for="Numero">Numero</label>
-        {% if form.errors %}
+        {% if form.errors or mensagem%}
              {{form.numero_casa}}
         {% else %}
         <input type="number" name="numero_casa" placeholder="Digite o numero da sua casa" value="{{funcionario.numero_casa}}"/>        
@@ -294,7 +298,7 @@
       <div class="form_grupo">
          
           <span class="legenda">Setor</span>
-          {% if form.errors %}
+          {% if form.errors or mensagem%}
           {{form.setor}}
           {% else %}
           {%if funcionario.setor == 'Vendas'%}
@@ -347,24 +351,34 @@
         {% endif %}
         {%endif%} 
       </div>
-          <div class="form_message">
-              
-              <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
-              <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required>{{funcionario.observacao}}</textarea>
 
-          </div>
+      {% if form.errors or mensagem %}
+        {{form.observacao}}
+      
+      {% else %}
+        <div class="form_message">
+              
+          <label for="message" class="form_message_label"> Digite aqui sua observação:</label>
+          <textarea name="observacao" id="message" cols="30" rows="3" class="form_input message_input" required>{{funcionario.observacao}}</textarea>
+
+        </div>
+      {% endif %}
+
+         
 
           <div class="submit">
 
             <input type="hidden" name="acao" value="enviar">
             <button type="submit" name="Submit" class="submit_btn"  id="alterar" >Alterar</button>
-            {%if form.errors%}
+            {%if form.errors or mensagem%}
               <input   type = "hidden" id="cidade" value="{{cidade}}">
-              <input  type  = "hidden" id="estado" value="{{estado}}">
+              <input   type = "hidden" id="estado" value="{{estado}}">
             {%else%}
               <input type="hidden" id="cidade" value="{{funcionario.cidade}}">
-              <input type="hidden" id="estado" value="{{funcionario.estado}}">
+              <input  type="hidden" id="estado" value="{{funcionario.estado}}">
             {%endif%}
+
+            
           </div>
         
 

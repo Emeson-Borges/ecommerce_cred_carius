@@ -1,5 +1,5 @@
 const cidadesPorEstado = {
-    acre: ["Acrelândia",
+    AC: ["Acrelândia",
           "Assis Brasil",
           "Brasiléia",
           "Bujari",
@@ -21,7 +21,7 @@ const cidadesPorEstado = {
           "Senador Guiomard",
           "Tarauacá",
           "Xapuri"],
-    alagoas: ["Água Branca",
+    AL: ["Água Branca",
               "Anadia",
               "Arapiraca",
               "Atalaia",
@@ -123,7 +123,7 @@ const cidadesPorEstado = {
               "Traipu",
               "União dos Palmares",
               "Viçosa"],
-    amapa:[
+    AP:[
     "Amapá",
     "Calçoene",
     "Cutias",
@@ -141,7 +141,7 @@ const cidadesPorEstado = {
     "Tartarugalzinho",
     "Vitória do Jari"
     ],
-    amazonas: [ "Alvarães",
+    AM: [ "Alvarães",
 "Amaturá",
 "Anamã",
 "Anori",
@@ -203,7 +203,7 @@ const cidadesPorEstado = {
 "Uarini",
 "Urucará",
 "Urucurituba"],
-    bahia: ["Abaíra",
+    BA: ["Abaíra",
 "Abaré",
 "Acajutiba",
 "Adustina",
@@ -622,7 +622,7 @@ const cidadesPorEstado = {
 "Wanderley",
 "Wenceslau Guimarães",
 "Xique-Xique"],
-    ceara: ["Abaiara",
+    CE: ["Abaiara",
             "Acarape",
             "Acaraú",
             "Acopiara",
@@ -808,25 +808,21 @@ const cidadesPorEstado = {
             "Viçosa do Ceará"],
     "brasilia": ["Brasília"],
     "espirito-santo": ["Vitória", "Vila Velha", "Cariacica"],
-    goias: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
-    maranhao: ["São Luís", "Imperatriz", "Timon"],
+    GO: ["Goiânia", "Aparecida de Goiânia", "Anápolis"],
+    MA: ["São Luís", "Imperatriz", "Timon"],
     "mato-grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis"],
     "mato-grosso-do-sul": ["Campo Grande", "Dourados", "Três Lagoas"],
     "minas-gerais": ["Belo Horizonte", "Uberlândia", "Contagem"],
-    para: ["Belém", "Ananindeua", "Santarém"],
-    paraiba: ["João Pessoa", "Campina Grande", "Santa Rita"],
-    parana: ["Curitiba", "Londrina", "Maringá"],
-    pernambuco: ["Recife", "Jaboatão dos Guararapes", "Olinda"],
-    piaui: ["Teresina", "Parnaíba", "Picos"],
-    "rio-de-janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
-    "rio-grande-do-norte": ["Natal", "Mossoró", "Parnamirim"],
-    "rio-grande-do-sul": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
-    rondonia: ["Porto Velho", "Ji-Paraná", "Ariquemes"],
-    roraima: ["Boa Vista", "Rorainópolis", "Caracaraí"],
-    "santa-catarina": ["Florianópolis", "Joinville", "Blumenau"],
-    "sao-paulo": ["São Paulo", "Guarulhos", "Campinas"],
-    sergipe: ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
-    tocantins: ["Palmas", "Araguaína", "Gurupi"]
+    PA: ["Belém", "Ananindeua", "Santarém"],
+    PB: ["João Pessoa", "Campina Grande", "Santa Rita"],
+    "PN": ["Curitiba", "Londrina", "Maringá"],
+    "PE": ["Recife", "Jaboatão dos Guararapes", "Olinda"],
+    "PI": ["Teresina", "Parnaíba", "Picos"],
+    "RJ": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias"],
+    "RN": ["Natal", "Mossoró", "Parnamirim"],
+    "RS": ["Porto Alegre", "Caxias do Sul", "Pelotas"],
+    "SE": ["Aracaju", "Nossa Senhora do Socorro", "Lagarto"],
+    "TO": ["Palmas", "Araguaína", "Gurupi"]
   };
   function validaCpf(cpf) {
   cpf = cpf.replace(/[^\d]+/g, '');
@@ -862,32 +858,6 @@ const cidadesPorEstado = {
   return true;
 }
 
-function validarRG() {
-  const inputRg = document.getElementById("rg").value;
-  const rgSemPontuacao = inputRg.replace(/\D/g, '');
-  
-  if (rgSemPontuacao.length !== 9) {
-    alert("RG inválido. Deve conter exatamente 9 dígitos.");
-    return;
-  }
-
-  const numeroRG = rgSemPontuacao.slice(0, 8);
-  const digitoConf = rgSemPontuacao.slice(8);
-  console.log(numeroRG)
-  // Cálculo do dígito de confirmação
-  let soma = 0;
-  for (let i = 0; i < 8; i++) {
-    soma += parseInt(numeroRG[i]) * (8 - i);
-  }
-  const resto = soma % 11;
-  const digitoCalculado = resto < 2 ? 0 : 11 - resto;
-
-  if (digitoCalculado === parseInt(digitoConf)) {
-    return true
-  } else {
-    return false
-  }
-}
 
 function formatarRG(input){
     
@@ -956,10 +926,13 @@ valor = valor.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
 input.value = valor;
 }
 window.onload = (event)=>{
+
   let estado = document.getElementById('estado').value
-  selectEstado.value  = estado
+  console.log(estado)
+  selectEstado.value = estado
     const cidades = cidadesPorEstado[estado];
     let city = document.getElementById('cidade').value
+    console.log(city)
     // Adiciona as opções de cidades no dropdown correspondente
     cidades.forEach((cidade) => {
       const optionElement = document.createElement('option');
@@ -967,6 +940,7 @@ window.onload = (event)=>{
       optionElement.value = cidade;
       selectCidade.appendChild(optionElement);
       if(city==cidade){
+        console.log()
         optionElement.selected = true
       }
     });
@@ -1018,14 +992,9 @@ return String(cpf).replace(/\D/g, '');
 botao_alterar.addEventListener('click',()=>{
   event.preventDefault();
   if(validaCpf(cpf.value)==true){
-    if(validarRG()==true){
       cpf.value = removerMascaraCPF(cpf.value)
       rg.value  = removerPontuacaoRG(rg.value)
       form_alterar.submit()
-    }else{
-      console.log(validarRG())
-      alert("RG Inválido!")
-    }
    
   }else{
     alert("CPF Inválido!")

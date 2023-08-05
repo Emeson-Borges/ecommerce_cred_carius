@@ -304,7 +304,7 @@ def upd_funcionario(request):
      if request.method == 'POST':
        form = FuncionarioForm(request.POST)
        if form.is_valid():
-
+        
         form.fields['nome'].widget.attrs['class']   = 'form_input'
         form.fields['email'].widget.attrs['class']  = 'form_input'
         form.fields['cpf'].widget.attrs['class']    = 'form_input'
@@ -321,36 +321,69 @@ def upd_funcionario(request):
         form.fields['observacao'].widget.attrs['class'] = 'form_input'
         form.fields['estado'].widget.attrs['class'] = 'form_select_option'
         funcionario = Funcionarios.objects.get(id=request.POST['id'])
-        nome                  = request.POST['nome']
-        cpf                   = request.POST['cpf']  
-        rg                    = request.POST['rg']                
-        cidade                = request.POST['cidade']
-        rua                   = request.POST['rua']
-        bairro                = request.POST['bairro']
-        dtnasc_func           = request.POST['dtnasc_func']
-        numero_casa           = request.POST['numero_casa']
-        contato               = request.POST['contato']
-        sexo                  = request.POST['sexo']
-        estadocivil           = request.POST['estadocivil']
-        estado                = request.POST['estado']
-        observacao            = request.POST['observacao']
-        funcionario.nome = nome
-        funcionario.cpf = cpf
-        funcionario.rg = rg
-        funcionario.cidade = cidade
-        funcionario.rua = rua
-        funcionario.bairro = bairro
-        funcionario.dtnasc_func = dtnasc_func
-        funcionario.numero_casa = numero_casa
-        funcionario.contato = contato
-        funcionario.sexo = sexo
-        funcionario.estadocivil = estado
-        funcionario.observacao = observacao
-        funcionario.estado     = estado
-        funcionario.estadocivil = estadocivil
-        funcionario.save()  
-        messages.success(request,'Funcionário Alterado!')
-        return redirect('listar_funcionarios')
+        cidade      = form.cleaned_data.get('cidade')
+        estado      = form.cleaned_data.get('estado')
+        id          = request.POST['id']
+        #Checa se já há o mesmo cpf no banco
+        if Funcionarios.objects.filter(cpf = form.cleaned_data['cpf']).exclude(id=id).exists():
+            form.fields['cpf'].widget.attrs['class']    = 'form-error'
+            print("CPF já existe")
+            return render(request,'alterar_funcionarios/alterar_funcionario.html',{'mensagem':'Já existe um funcionário com esse CPF',
+                                                                                       'form':form,
+                                                                                       'id'  : id,
+                                                                                       'cidade':cidade,
+                                                                                       'estado':estado})
+         #Checa se já há o mesmo rg no banco
+        elif Funcionarios.objects.filter(rg = form.cleaned_data['rg']).exclude(id=id).exists():
+            form.fields['rg'].widget.attrs['class']    = 'form-error'
+            print("RG Já existe")
+            return render(request,'alterar_funcionarios/alterar_funcionario.html',{'mensagem':'Já existe um funcionário com esse RG',
+                                                                                    'form':form,
+                                                                                    'id':id,
+                                                                                    'cidade':cidade,
+                                                                                    'estado':estado})
+         #Checa se já há o mesmo email no banco
+        elif Funcionarios.objects.filter(email = form.cleaned_data['email']).exclude(id=id).exists():
+            form.fields['email'].widget.attrs['class']    = 'form-error'
+            print('Email já existe')
+            return render(request,'alterar_funcionarios/alterar_funcionario.html',{'mensagem':'Já existe um funcionário com esse Email',
+                                                                                    'form':form,
+                                                                                    'id'  : id,
+                                                                                    'cidade':cidade,
+                                                                                       'estado':estado})
+        else:
+            nome                  = request.POST['nome']
+            email                 = request.POST['email']
+            cpf                   = request.POST['cpf']  
+            rg                    = request.POST['rg']                
+            cidade                = request.POST['cidade']
+            rua                   = request.POST['rua']
+            bairro                = request.POST['bairro']
+            dtnasc_func           = request.POST['dtnasc_func']
+            numero_casa           = request.POST['numero_casa']
+            contato               = request.POST['contato']
+            sexo                  = request.POST['sexo']
+            estadocivil           = request.POST['estadocivil']
+            estado                = request.POST['estado']
+            observacao            = request.POST['observacao']
+            funcionario.nome = nome
+            funcionario.email  = email
+            funcionario.cpf = cpf
+            funcionario.rg = rg
+            funcionario.cidade = cidade
+            funcionario.rua = rua
+            funcionario.bairro = bairro
+            funcionario.dtnasc_func = dtnasc_func
+            funcionario.numero_casa = numero_casa
+            funcionario.contato = contato
+            funcionario.sexo = sexo
+            funcionario.estadocivil = estado
+            funcionario.observacao = observacao
+            funcionario.estado     = estado
+            funcionario.estadocivil = estadocivil
+            funcionario.save()  
+            messages.success(request,'Funcionário Alterado!')
+            return redirect('listar_funcionarios')
        else:
         if 'nome' in form.errors:
            form.fields['nome'].widget.attrs['class'] = 'form-error'
@@ -400,8 +433,9 @@ def upd_funcionario(request):
        if 'observacao' in form.errors:
           form.fields['observacao'].widget.attrs['class'] = 'form-error'
        id = request.POST['id']
-       estado = form.cleaned_data['estado']
-       cidade = form.cleaned_data['cidade']
+       estado = request.POST['estado']
+       cidade = request.POST['cidade']
+       print(estado,'\n')
        return render(request,'alterar_funcionarios/alterar_funcionario.html',{'form':form,
                                                                                 'id' : id,
                                                                               'estado':estado,

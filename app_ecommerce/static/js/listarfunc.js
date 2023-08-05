@@ -165,8 +165,8 @@ tipo_pesquisa.forEach((option)=>{
   
 })
 
-
-selectEstado.addEventListener('change', function() {
+if(selectEstado){
+  selectEstado.addEventListener('change', function() {
   const estadoSelecionado = this.value;
   
   // Limpa as opções do dropdown de cidades
@@ -185,7 +185,22 @@ selectEstado.addEventListener('change', function() {
     });
   }
 });
+}
+
 window.onload = (event)=>{
+let msg = document.querySelector('.messages')
+if(msg){
+  const warning = document.querySelector('.warning')
+  const success = document.querySelector('.success')
+  console.log('Mensagem Criada')
+  setTimeout(()=>{
+  if(msg.contains(warning)){
+    msg.removeChild(warning)
+  }else if(msg.contains(success)){
+    msg.removeChild(success)
+  }
+  },3000)
+}
 const form_pesquisa = document.getElementById('form-pesquisa')
 form_pesquisa.addEventListener('submit',()=>{
  

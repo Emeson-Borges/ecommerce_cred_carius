@@ -151,9 +151,13 @@ Listar funcionário
     <td class="id" value={{f.id}}> {{f.id}} </td>
     <td>{{ f.nome }}</td>
     <td class="cpf" value={{f.cpf}}>{{ f.cpf }}</td>
-    <td class="rg" value={{f.rg}}>{{ f.rg }}</td>
+    <td class="rg" value={{f.rg}}>{{ f.rg }}</td> 
     <td>{{ f.estadocivil }}</td>
-    <td>{{ f.sexo }}</td>
+    {% if f.sexo == 'M' %}
+    <td>Masculino</td>
+    {% elif f.sexo == 'F' %}
+    <td>Feminino</td>
+    {% endif %}
     <td>{{f.setor}} </td>
     <td>{{ f.email}}</td>
     <td>{{ f.contato}}</td>
@@ -186,6 +190,7 @@ Excluir
 <div class="text-center mt-5 mb-5 jumbotron">
 <h3>Nenhum Funcionário cadastrado ainda.</h3>
 </div>
+<a class="btn-cadastrar" href="{% url 'cadastrar_funcionario' %}"> Cadastrar Funcionário <i class="fa-solid fa-person-circle-plus"></i></a>
 {% endif %}
 <div class="text-right">
 
